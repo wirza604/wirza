@@ -5,46 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ウィルザ 公式サイト</title>
     <style>
-        /* 基本設定 */
         body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .site-title { font-size: 24px; font-weight: bold; }
 
-        /* セクション間の大きな空白 */
-        section { width: 100%; padding: 80px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 120px; transition: all 0.5s ease; }
+        section { width: 100%; padding: 60px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 100px; }
         section:last-child { margin-bottom: 50px; }
 
-        /* ヘッダー部分（タイトルとボタン） */
         .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
-        .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; letter-spacing: -2px; }
-        .section-title-sub { font-size: 18px; font-weight: bold; margin-top: 5px; display: block; }
+        .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; }
+        .section-title-sub { font-size: 18px; font-weight: bold; }
 
-        /* 「すべて表示」ボタン */
         .view-all-btn {
             background-color: #ffffff; color: #000000; border: none; cursor: pointer;
             font-size: 13px; font-weight: bold; padding: 10px 22px; border-radius: 25px; 
-            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s;
+            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .view-all-btn:active { transform: scale(0.9); }
 
-        /* ★隠しエリア（PV方式のキモ） */
-        .more-content {
+        /* ★ここがポイント：カードを並べるエリア */
+        .content-area {
             width: 90%; max-width: 1200px;
-            max-height: 0; overflow: hidden;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
-        .more-content.show { max-height: 1500px; padding-top: 30px; padding-bottom: 30px; }
 
-        /* カードのデザイン */
+        /* 最初から見えるカード */
         .card { 
             aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); 
             border: 2px solid rgba(255,255,255,0.4); border-radius: 12px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-weight: bold; font-size: 18px; text-align: center; padding: 20px;
+            font-weight: bold; font-size: 18px; text-align: center;
         }
 
-        /* 背景色設定 */
+        /* ★隠しエリア（VIEW ALLを押すと出る） */
+        .more-content {
+            grid-column: 1 / -1; /* 横いっぱいに広がる */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .more-content.show { max-height: 1000px; margin-top: 20px; }
+
+        /* 各セクションの色 */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-yellow { background-color: #ffd700; color: #000; }
@@ -53,7 +58,7 @@
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
         /* トップ動画 */
-        .top-video-link { width: 98%; max-width: 1400px; display: block; margin: 20px 0 120px 0; text-decoration: none; }
+        .top-video-link { width: 98%; max-width: 1400px; display: block; margin: 20px 0 100px 0; text-decoration: none; }
         .top-video { width: 100%; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; position: relative; }
         iframe { width: 100%; height: 100%; border: none; pointer-events: none; }
         .click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
@@ -79,54 +84,27 @@
                 <div><span class="section-title-large">LIVE</span><span class="section-title-sub">ライブ情報</span></div>
                 <button class="view-all-btn" onclick="toggleSection('live-more')">VIEW ALL</button>
             </div>
-            <div class="more-content" id="live-more">
-                <div class="card">次回配信：未定<br><small>準備中...</small></div>
-                <div class="card">過去のアーカイブ<br><small>もっと見る</small></div>
-            </div>
-        </section>
-
-        <section id="video" class="bg-purple">
-            <div class="section-header">
-                <div><span class="section-title-large">VIDEO</span><span class="section-title-sub">おすすめ動画</span></div>
-                <button class="view-all-btn" onclick="toggleSection('video-more')">VIEW ALL</button>
-            </div>
-            <div class="more-content" id="video-more">
-                <div class="card">最新ショート動画</div>
-                <div class="card">マイクラ実況</div>
-                <div class="card">編集テクニック</div>
+            <div class="content-area">
+                <div class="card">最新ライブ1</div>
+                <div class="card">最新ライブ2</div>
+                <div class="more-content" id="live-more">
+                    <div class="card">過去ライブ3</div>
+                    <div class="card">過去ライブ4</div>
+                </div>
             </div>
         </section>
 
         <section id="event" class="bg-yellow">
             <div class="section-header">
-                <div><span class="section-title-large">EVENT</span><span class="section-title-sub">イベント告知</span></div>
+                <div><span class="section-title-large">EVENT</span><span class="section-title-sub">イベント</span></div>
                 <button class="view-all-btn" onclick="toggleSection('event-more')">VIEW ALL</button>
             </div>
-            <div class="more-content" id="event-more">
-                <div class="card">近日公開予定！</div>
-            </div>
-        </section>
-
-        <section id="schedule" class="bg-red">
-            <div class="section-header">
-                <div><span class="section-title-large">SCHEDULE</span><span class="section-title-sub">今週の予定</span></div>
-                <button class="view-all-btn" onclick="toggleSection('sch-more')">VIEW ALL</button>
-            </div>
-            <div class="more-content" id="sch-more">
-                <div class="card">月：お休み</div>
-                <div class="card">水：動画投稿</div>
-                <div class="card">土：20:00〜 ライブ</div>
-            </div>
-        </section>
-
-        <section id="entry" class="bg-orange">
-            <div class="section-header">
-                <div><span class="section-title-large">ENTRY</span><span class="section-title-sub">視聴者参加型</span></div>
-                <button class="view-all-btn" onclick="toggleSection('entry-more')">VIEW ALL</button>
-            </div>
-            <div class="more-content" id="entry-more">
-                <div class="card">参加のルール</div>
-                <div class="card">Discordサーバー</div>
+            <div class="content-area">
+                <div class="card">最新イベント1</div>
+                <div class="card">最新イベント2</div>
+                <div class="more-content" id="event-more">
+                    <div class="card">過去イベント3</div>
+                </div>
             </div>
         </section>
 
@@ -136,18 +114,8 @@
         function toggleSection(id) {
             const content = document.getElementById(id);
             const btn = event.currentTarget;
-            
             content.classList.toggle('show');
-            
-            if (content.classList.contains('show')) {
-                btn.innerText = "CLOSE";
-                btn.style.backgroundColor = "#000";
-                btn.style.color = "#fff";
-            } else {
-                btn.innerText = "VIEW ALL";
-                btn.style.backgroundColor = "#fff";
-                btn.style.color = "#000";
-            }
+            btn.innerText = content.classList.contains('show') ? "CLOSE" : "VIEW ALL";
         }
     </script>
 </body>
