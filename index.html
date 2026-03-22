@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ウィルザ 公式サイト</title>
     <style>
-        /* 全体の設定 */
         body {
             background-color: #ffffff;
             color: #000000;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: sans-serif;
             margin: 0;
-            padding: 0;
+            overflow-x: hidden;
         }
 
-        /* ヘッダー（上の部分） */
         header {
             display: flex;
             justify-content: space-between;
@@ -27,7 +25,7 @@
             font-weight: bold;
         }
 
-        /* 三本線メニューボタン */
+        /* 三本線ボタン */
         .menu-btn {
             width: 30px;
             height: 20px;
@@ -35,25 +33,12 @@
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
-            z-index: 200; /* メニューより上に表示 */
         }
 
         .menu-btn .line {
             width: 100%;
             height: 3px;
             background-color: #000000;
-            transition: all 0.3s ease; /* アニメーション用 */
-        }
-
-        /* メニューが開いた時の三本線の形（×にする） */
-        .menu-btn.open .line:nth-child(1) {
-            transform: translateY(8.5px) rotate(45deg);
-        }
-        .menu-btn.open .line:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-btn.open .line:nth-child(3) {
-            transform: translateY(-8.5px) rotate(-45deg);
         }
 
         /* 全画面メニュー（オーバーレイ） */
@@ -63,46 +48,54 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95); /* 背景を黒く */
+            background-color: rgba(0, 0, 0, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 100;
             
-            /* 初期状態は非表示、アニメーション設定 */
+            /* 0.5秒でふわっと出す設定 */
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease; /* 0.5秒で出入り */
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        /* メニューが開いた時の状態 */
+        /* メニューが開いた時 */
         .overlay.open {
             opacity: 1;
             visibility: visible;
         }
 
-        /* メニューの中身 */
+        /* 閉じるボタン（右上） */
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 50px;
+            color: #ffffff;
+            cursor: pointer;
+            line-height: 1;
+        }
+
         .menu-content {
             text-align: center;
         }
 
-        /* メニュー項目（リンク） */
+        /* メニュー項目：基本は白、ホバーで赤 */
         .menu-item {
             display: block;
-            color: #ffffff; /* 通常は白 */
+            color: #ffffff;
             text-decoration: none;
             font-size: 32px;
             font-weight: bold;
             margin: 25px 0;
-            transition: color 0.3s ease; /* 色の変化を滑らかに */
+            transition: color 0.3s ease;
         }
 
-        /* カーソルを合わせた時（ホバー） */
         .menu-item:hover {
-            color: #ff0000; /* 赤になる */
+            color: #ff0000;
         }
 
-        /* メインコンテンツ（動画枠） */
         main {
             display: flex;
             justify-content: center;
@@ -110,17 +103,16 @@
             min-height: 70vh;
         }
 
-        .video-placeholder {
+        .video-box {
             width: 80%;
             max-width: 800px;
-            aspect-ratio: 16 / 9; /* 16:9の比率 */
+            aspect-ratio: 16 / 9;
             border: 4px solid #000000;
             background-color: #eeeeee;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #888888;
-            font-size: 18px;
         }
     </style>
 </head>
@@ -128,7 +120,7 @@
 
     <header>
         <div class="site-title">ウィルザ公式サイト</div>
-        <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+        <div class="menu-btn" onclick="toggleMenu()">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
@@ -136,27 +128,24 @@
     </header>
 
     <div class="overlay" id="overlay">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        
         <div class="menu-content">
             <a href="#" class="menu-item">ライブ</a>
             <a href="event.html" class="menu-item">イベント</a>
             <a href="https://www.youtube.com/@wirza604" class="menu-item" target="_blank">動画</a>
             <a href="#" class="menu-item">スケジュール</a>
-            <a href="#" class="menu-item">視聴者参加型</a> </div>
+            <a href="#" class="menu-item">視聴者参加型</a>
+        </div>
     </div>
 
     <main>
-        <div class="video-placeholder">
-             여기에 동영상을 배치 (YouTube 임베드 코드 예정)
-        </div>
+        <div class="video-box">ここに動画を配置</div>
     </main>
 
     <script>
         function toggleMenu() {
-            const menuBtn = document.getElementById('menuBtn');
             const overlay = document.getElementById('overlay');
-            
-            // 'open'クラスをつけ外しして、アニメーションと表示を制御
-            menuBtn.classList.toggle('open');
             overlay.classList.toggle('open');
         }
     </script>
