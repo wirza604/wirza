@@ -9,44 +9,39 @@
     <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, YouTube, ライブ, 参加型">
 
     <style>
+        /* スムーズにスクロールさせる魔法の1行 */
+        html { scroll-behavior: smooth; }
+
         body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .site-title { font-size: 24px; font-weight: bold; }
         
-        /* 三本線メニューボタン */
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000000; }
 
-        /* 全画面メニュー（0.5秒でふわっと出す） */
+        /* 全画面メニュー */
         .overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background-color: rgba(0, 0, 0, 0.95); 
             display: none; justify-content: center; align-items: center; 
             z-index: 100; opacity: 0; 
-            transition: opacity 0.5s ease; /* 0.5秒のアニメーション */
+            transition: opacity 0.5s ease;
         }
         .overlay.open { display: flex; opacity: 1; }
 
-        /* ★復活した閉じるボタン（×） */
-        .close-btn { 
-            position: absolute; top: 30px; right: 30px; 
-            font-size: 60px; color: #ffffff; cursor: pointer; 
-            line-height: 1; transition: color 0.3s;
-        }
-        .close-btn:hover { color: #ff0000; } /* ×ボタンもホバーで赤く */
+        .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #ffffff; cursor: pointer; line-height: 1; }
+        .close-btn:hover { color: #ff0000; }
 
         .menu-content { text-align: center; }
-
-        /* メニュー項目（ホバーで赤くなる） */
         .menu-item { 
             display: block; color: #ffffff; text-decoration: none; 
             font-size: 32px; font-weight: bold; margin: 25px 0; 
-            transition: color 0.3s ease, transform 0.2s; 
+            transition: color 0.3s ease; 
         }
-        .menu-item:hover { color: #ff0000; transform: scale(1.1); }
+        .menu-item:hover { color: #ff0000; }
 
         /* セクション共通 */
-        section { width: 100%; padding: 60px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 100px; }
+        section { width: 100%; padding: 100px 0 60px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 100px; }
         .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; }
         .section-title-sub { font-size: 18px; font-weight: bold; }
@@ -70,12 +65,15 @@
         .bg-yellow .view-all-btn { background-color: #000; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
+        #top { width: 100%; height: 0; } /* ホーム用の一番上の目印 */
         .top-video-link { width: 98%; max-width: 1400px; display: block; margin: 20px 0 100px 0; }
         .top-video { width: 100%; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
+
+    <div id="top"></div>
 
     <header>
         <div class="site-title">ウィルザ公式サイト</div>
@@ -85,9 +83,9 @@
     <div class="overlay" id="overlay">
         <div class="close-btn" onclick="closeMenu()">&times;</div>
         <div class="menu-content">
-            <a href="#" class="menu-item" onclick="closeMenu()">ホーム</a>
+            <a href="#top" class="menu-item" onclick="closeMenu()">ホーム</a>
             <a href="#live" class="menu-item" onclick="closeMenu()">ライブ</a>
-            <a href="#video" class="menu-item" onclick="closeMenu()">動画</a>
+            <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="menu-item" onclick="closeMenu()">動画</a>
             <a href="#event" class="menu-item" onclick="closeMenu()">イベント</a>
             <a href="#schedule" class="menu-item" onclick="closeMenu()">スケジュール</a>
             <a href="#entry" class="menu-item" onclick="closeMenu()">視聴者参加型</a>
@@ -112,21 +110,51 @@
             </div>
         </section>
 
-        </main>
+        <section id="event" class="bg-yellow">
+            <div class="section-header">
+                <div><span class="section-title-large">EVENT</span><span class="section-title-sub">イベント</span></div>
+                <button class="view-all-btn" onclick="toggleSection('event-more')">VIEW ALL</button>
+            </div>
+            <div class="content-area">
+                <div class="card">イベント1</div><div class="card">イベント2</div>
+                <div class="more-content" id="event-more"><div class="card">イベント3</div></div>
+            </div>
+        </section>
+
+        <section id="schedule" class="bg-red">
+            <div class="section-header">
+                <div><span class="section-title-large">SCHEDULE</span><span class="section-title-sub">スケジュール</span></div>
+                <button class="view-all-btn" onclick="toggleSection('sch-more')">VIEW ALL</button>
+            </div>
+            <div class="content-area">
+                <div class="card">月曜：配信</div><div class="card">水曜：動画</div>
+                <div class="more-content" id="sch-more"><div class="card">土曜：ライブ</div></div>
+            </div>
+        </section>
+
+        <section id="entry" class="bg-orange">
+            <div class="section-header">
+                <div><span class="section-title-large">ENTRY</span><span class="section-title-sub">視聴者参加型</span></div>
+                <button class="view-all-btn" onclick="toggleSection('entry-more')">VIEW ALL</button>
+            </div>
+            <div class="content-area">
+                <div class="card">ルール</div><div class="card">参加方法</div>
+                <div class="more-content" id="entry-more"><div class="card">Discord</div></div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // メニューを開く（0.5秒かける）
         function openMenu() {
             const overlay = document.getElementById('overlay');
             overlay.style.display = 'flex';
             setTimeout(() => { overlay.classList.add('open'); }, 10);
         }
 
-        // メニューを閉じる
         function closeMenu() {
             const overlay = document.getElementById('overlay');
             overlay.classList.remove('open');
-            setTimeout(() => { overlay.style.display = 'none'; }, 500); // アニメーション終了後に消す
+            setTimeout(() => { overlay.style.display = 'none'; }, 500);
         }
 
         function toggleSection(id) {
