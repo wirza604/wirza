@@ -5,117 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ウィルザ 公式サイト</title>
     <style>
+        /* 基本設定 */
         body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .site-title { font-size: 24px; font-weight: bold; }
-        .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
-        .menu-btn .line { width: 100%; height: 3px; background-color: #000000; }
 
-        /* 全画面メニュー */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 100; opacity: 0; transition: opacity 0.5s ease; }
-        .overlay.open { display: flex; opacity: 1; }
-        .close-btn { position: absolute; top: 30px; right: 30px; font-size: 50px; color: #ffffff; cursor: pointer; }
-        .menu-item { display: block; color: #ffffff; text-decoration: none; font-size: 28px; font-weight: bold; margin: 20px 0; }
+        /* セクション間の大きな空白 */
+        section { width: 100%; padding: 80px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 120px; transition: all 0.5s ease; }
+        section:last-child { margin-bottom: 50px; }
 
-        /* セクション設定（間の空白を100pxに設定） */
-        section { 
-            width: 100%; 
-            padding: 80px 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            margin-bottom: 100px; 
-        }
-        section:last-child { margin-bottom: 0; }
+        /* ヘッダー部分（タイトルとボタン） */
+        .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
+        .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; letter-spacing: -2px; }
+        .section-title-sub { font-size: 18px; font-weight: bold; margin-top: 5px; display: block; }
 
-        .section-header {
-            width: 90%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .title-group { display: flex; flex-direction: column; }
-        .section-title-large { font-size: clamp(40px, 10vw, 60px); font-weight: 900; font-style: italic; line-height: 1; }
-        .section-title-sub { font-size: 16px; font-weight: bold; }
-
+        /* 「すべて表示」ボタン */
         .view-all-btn {
-            background-color: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            white-space: nowrap;
+            background-color: #ffffff; color: #000000; border: none; cursor: pointer;
+            font-size: 13px; font-weight: bold; padding: 10px 22px; border-radius: 25px; 
+            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        .view-all-btn:active { transform: scale(0.9); }
+
+        /* ★隠しエリア（PV方式のキモ） */
+        .more-content {
+            width: 90%; max-width: 1200px;
+            max-height: 0; overflow: hidden;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .more-content.show { max-height: 1500px; padding-top: 30px; padding-bottom: 30px; }
+
+        /* カードのデザイン */
+        .card { 
+            aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); 
+            border: 2px solid rgba(255,255,255,0.4); border-radius: 12px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 18px; text-align: center; padding: 20px;
         }
 
-        .content-placeholder { width: 90%; max-width: 1200px; min-height: 150px; border: 2px dashed rgba(255,255,255,0.3); display: flex; justify-content: center; align-items: center; color: #eee; }
-
-        /* 背景色 */
+        /* 背景色設定 */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-yellow { background-color: #ffd700; color: #000; }
         .bg-yellow .view-all-btn { background-color: #000; color: #fff; }
-        .bg-yellow .content-placeholder { border-color: rgba(0,0,0,0.1); color: #000; }
+        .bg-yellow .card { border-color: rgba(0,0,0,0.2); }
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
-        /* 動画エリア全体をリンクにするための設定 */
-        .video-link-wrapper {
-            width: 98%;
-            max-width: 1400px;
-            display: block;
-            text-decoration: none;
-            margin-top: 20px;
-            margin-bottom: 100px;
-        }
-
-        .top-video { 
-            width: 100%;
-            aspect-ratio: 16 / 9; 
-            border: 5px solid #000; 
-            background: #000; 
-            position: relative;
-        }
-        
-        iframe { width: 100%; height: 100%; border: none; pointer-events: none; } /* タップを親のリンクに譲る設定 */
-
-        /* クリックしやすくするための透明なカバー */
-        .click-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-        }
+        /* トップ動画 */
+        .top-video-link { width: 98%; max-width: 1400px; display: block; margin: 20px 0 120px 0; text-decoration: none; }
+        .top-video { width: 100%; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; pointer-events: none; }
+        .click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="site-title">ウィルザ公式サイト</div>
-        <div class="menu-btn" onclick="toggleMenu()"><div class="line"></div><div class="line"></div><div class="line"></div></div>
     </header>
-
-    <div class="overlay" id="overlay">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        <div class="menu-content">
-            <a href="#" class="menu-item" onclick="toggleMenu()">ホーム</a>
-            <a href="#live" class="menu-item" onclick="toggleMenu()">ライブ</a>
-            <a href="#video" class="menu-item" onclick="toggleMenu()">動画</a>
-            <a href="#event" class="menu-item" onclick="toggleMenu()">イベント</a>
-            <a href="#schedule" class="menu-item" onclick="toggleMenu()">スケジュール</a>
-            <a href="#entry" class="menu-item" onclick="toggleMenu()">視聴者参加型</a>
-        </div>
-    </div>
 
     <main style="display: flex; flex-direction: column; align-items: center;">
         
-        <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="video-link-wrapper">
+        <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="top-video-link">
             <div class="top-video">
                 <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA"></iframe>
                 <div class="click-overlay"></div>
@@ -124,65 +76,78 @@
 
         <section id="live" class="bg-red">
             <div class="section-header">
-                <div class="title-group">
-                    <span class="section-title-large">LIVE</span>
-                    <span class="section-title-sub">ライブ</span>
-                </div>
-                <a href="#" class="view-all-btn">VIEW ALL</a>
+                <div><span class="section-title-large">LIVE</span><span class="section-title-sub">ライブ情報</span></div>
+                <button class="view-all-btn" onclick="toggleSection('live-more')">VIEW ALL</button>
             </div>
-            <div class="content-placeholder">情報を準備中...</div>
+            <div class="more-content" id="live-more">
+                <div class="card">次回配信：未定<br><small>準備中...</small></div>
+                <div class="card">過去のアーカイブ<br><small>もっと見る</small></div>
+            </div>
         </section>
 
         <section id="video" class="bg-purple">
             <div class="section-header">
-                <div class="title-group">
-                    <span class="section-title-large">VIDEO</span>
-                    <span class="section-title-sub">動画</span>
-                </div>
-                <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="view-all-btn">VIEW ALL</a>
+                <div><span class="section-title-large">VIDEO</span><span class="section-title-sub">おすすめ動画</span></div>
+                <button class="view-all-btn" onclick="toggleSection('video-more')">VIEW ALL</button>
             </div>
-            <div class="content-placeholder">情報を準備中...</div>
+            <div class="more-content" id="video-more">
+                <div class="card">最新ショート動画</div>
+                <div class="card">マイクラ実況</div>
+                <div class="card">編集テクニック</div>
+            </div>
         </section>
 
         <section id="event" class="bg-yellow">
             <div class="section-header">
-                <div class="title-group">
-                    <span class="section-title-large">EVENT</span>
-                    <span class="section-title-sub">イベント</span>
-                </div>
-                <a href="event.html" class="view-all-btn">VIEW ALL</a>
+                <div><span class="section-title-large">EVENT</span><span class="section-title-sub">イベント告知</span></div>
+                <button class="view-all-btn" onclick="toggleSection('event-more')">VIEW ALL</button>
             </div>
-            <div class="content-placeholder">情報を準備中...</div>
+            <div class="more-content" id="event-more">
+                <div class="card">近日公開予定！</div>
+            </div>
         </section>
 
         <section id="schedule" class="bg-red">
             <div class="section-header">
-                <div class="title-group">
-                    <span class="section-title-large">SCHEDULE</span>
-                    <span class="section-title-sub">スケジュール</span>
-                </div>
-                <a href="#" class="view-all-btn">VIEW ALL</a>
+                <div><span class="section-title-large">SCHEDULE</span><span class="section-title-sub">今週の予定</span></div>
+                <button class="view-all-btn" onclick="toggleSection('sch-more')">VIEW ALL</button>
             </div>
-            <div class="content-placeholder">情報を準備中...</div>
+            <div class="more-content" id="sch-more">
+                <div class="card">月：お休み</div>
+                <div class="card">水：動画投稿</div>
+                <div class="card">土：20:00〜 ライブ</div>
+            </div>
         </section>
 
         <section id="entry" class="bg-orange">
             <div class="section-header">
-                <div class="title-group">
-                    <span class="section-title-large">PLAY TOGETHER</span>
-                    <span class="section-title-sub">視聴者参加型</span>
-                </div>
-                <a href="#" class="view-all-btn">VIEW ALL</a>
+                <div><span class="section-title-large">ENTRY</span><span class="section-title-sub">視聴者参加型</span></div>
+                <button class="view-all-btn" onclick="toggleSection('entry-more')">VIEW ALL</button>
             </div>
-            <div class="content-placeholder">情報を準備中...</div>
+            <div class="more-content" id="entry-more">
+                <div class="card">参加のルール</div>
+                <div class="card">Discordサーバー</div>
+            </div>
         </section>
+
     </main>
 
     <script>
-        function toggleMenu() {
-            const overlay = document.getElementById('overlay');
-            overlay.classList.toggle('open');
-            overlay.style.opacity = overlay.classList.contains('open') ? '1' : '0';
+        function toggleSection(id) {
+            const content = document.getElementById(id);
+            const btn = event.currentTarget;
+            
+            content.classList.toggle('show');
+            
+            if (content.classList.contains('show')) {
+                btn.innerText = "CLOSE";
+                btn.style.backgroundColor = "#000";
+                btn.style.color = "#fff";
+            } else {
+                btn.innerText = "VIEW ALL";
+                btn.style.backgroundColor = "#fff";
+                btn.style.color = "#000";
+            }
         }
     </script>
 </body>
