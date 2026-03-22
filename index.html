@@ -12,20 +12,16 @@
             margin: 0;
             overflow-x: hidden;
         }
-
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 30px;
         }
-
         .site-title {
             font-size: 24px;
             font-weight: bold;
         }
-
-        /* 三本線ボタン */
         .menu-btn {
             width: 30px;
             height: 20px;
@@ -34,14 +30,11 @@
             justify-content: space-between;
             cursor: pointer;
         }
-
         .menu-btn .line {
             width: 100%;
             height: 3px;
             background-color: #000000;
         }
-
-        /* 全画面メニュー（オーバーレイ） */
         .overlay {
             position: fixed;
             top: 0;
@@ -49,24 +42,17 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.95);
-            display: flex;
+            display: none; /* 初期状態は非表示 */
             justify-content: center;
             align-items: center;
             z-index: 100;
-            
-            /* 0.5秒でふわっと出す設定 */
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.5s ease;
         }
-
-        /* メニューが開いた時 */
         .overlay.open {
+            display: flex;
             opacity: 1;
-            visibility: visible;
         }
-
-        /* 閉じるボタン（右上） */
         .close-btn {
             position: absolute;
             top: 30px;
@@ -74,14 +60,10 @@
             font-size: 50px;
             color: #ffffff;
             cursor: pointer;
-            line-height: 1;
         }
-
         .menu-content {
             text-align: center;
         }
-
-        /* メニュー項目：基本は白、ホバーで赤 */
         .menu-item {
             display: block;
             color: #ffffff;
@@ -91,28 +73,28 @@
             margin: 25px 0;
             transition: color 0.3s ease;
         }
-
         .menu-item:hover {
             color: #ff0000;
         }
-
         main {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 70vh;
+            min-height: 80vh;
+            padding: 20px;
         }
-
         .video-box {
-            width: 80%;
-            max-width: 800px;
+            width: 98%;
+            max-width: 1400px;
             aspect-ratio: 16 / 9;
-            border: 4px solid #000000;
+            border: 5px solid #000000;
             background-color: #eeeeee;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #888888;
+            font-size: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -129,7 +111,6 @@
 
     <div class="overlay" id="overlay">
         <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        
         <div class="menu-content">
             <a href="#" class="menu-item">ライブ</a>
             <a href="event.html" class="menu-item">イベント</a>
@@ -146,7 +127,17 @@
     <script>
         function toggleMenu() {
             const overlay = document.getElementById('overlay');
-            overlay.classList.toggle('open');
+            if (overlay.classList.contains('open')) {
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.classList.remove('open');
+                }, 500);
+            } else {
+                overlay.classList.add('open');
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
+                }, 10);
+            }
         }
     </script>
 </body>
