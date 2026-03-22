@@ -10,19 +10,65 @@
     <meta property="og:title" content="ウィルザ 公式サイト">
     <meta property="og:description" content="ウィルザの最新情報はこちらからチェック！">
     <meta property="og:type" content="website">
+
     <style>
         body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .site-title { font-size: 24px; font-weight: bold; }
         
-        .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
-        .menu-btn .line { width: 100%; height: 3px; background-color: #000000; }
+        /* 三本線メニューボタン */
+        .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 110; }
+        .menu-btn .line { width: 100%; height: 3px; background-color: #000000; transition: all 0.3s ease; }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 100; opacity: 0; transition: opacity 0.5s ease; }
-        .overlay.open { display: flex; opacity: 1; }
+        /* ★全画面メニュー（表示時間を0.5秒に設定） */
+        .overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background-color: rgba(0, 0, 0, 0.95); 
+            display: none; /* 最初は非表示 */
+            justify-content: center; align-items: center; 
+            z-index: 100; 
+            opacity: 0; 
+            /* ★ここを0.5s（0.5秒）に設定 */
+            transition: opacity 0.5s ease, visibility 0.5s ease; 
+            visibility: hidden; /* 完全に隠す */
+        }
+        
+        /* メニューが開いた時の状態 */
+        .overlay.open { 
+            display: flex; /* 表示する */
+            opacity: 1; 
+            visibility: visible;
+        }
+
         .close-btn { position: absolute; top: 30px; right: 30px; font-size: 50px; color: #ffffff; cursor: pointer; }
-        .menu-item { display: block; color: #ffffff; text-decoration: none; font-size: 28px; font-weight: bold; margin: 20px 0; }
+        
+        .menu-content { text-align: center; }
 
+        /* ★メニュー項目（カーソル合わせで赤くする設定） */
+        .menu-item { 
+            display: block; 
+            color: #ffffff; 
+            text-decoration: none; 
+            font-size: 28px; 
+            font-weight: bold; 
+            margin: 25px 0; 
+            /* ★なめらかに色を変えるための設定 */
+            transition: color 0.3s ease, transform 0.3s ease; 
+            cursor: pointer;
+        }
+
+        /* ★カーソルを合わせた時（ホバー）の設定 */
+        .menu-item:hover { 
+            color: #ff0000; /* 赤色にする */
+            transform: scale(1.05); /* 少し大きくする（おまけ） */
+        }
+        
+        /* ★スマホでタップした時の設定（アクティブ） */
+        .menu-item:active {
+            color: #ff4444; /* 少し明るい赤 */
+        }
+
+        /* セクション設定 */
         section { width: 100%; padding: 60px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 100px; }
         section:last-child { margin-bottom: 50px; }
 
@@ -59,11 +105,14 @@
 
     <header>
         <div class="site-title">ウィルザ公式サイト</div>
-        <div class="menu-btn" onclick="toggleMenu()"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+        <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
     </header>
 
     <div class="overlay" id="overlay">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
         <div class="menu-content">
             <a href="#" class="menu-item" onclick="toggleMenu()">ホーム</a>
             <a href="#live" class="menu-item" onclick="toggleMenu()">ライブ</a>
@@ -141,14 +190,39 @@
     </main>
 
     <script>
+        // ★メニューの開閉（0.5秒アニメーションに対応）
         function toggleMenu() {
             const overlay = document.getElementById('overlay');
-            overlay.classList.toggle('open');
-            overlay.style.opacity = overlay.classList.contains('open') ? '1' : '0';
+            const menuBtn = document.getElementById('menuBtn');
+            
+            // メニュー自体の表示/非表示（CSSのtransitionで0.5秒かける）
+            if (overlay.classList.contains('open')) {
+                // 閉じる時
+                overlay.style.opacity = '0';
+                // アニメーションが終わる0.5秒後にdisplay:noneにする
+                setTimeout(() => {
+                    overlay.classList.remove('open');
+                    // ★三本線ボタンの色を黒に戻す
+                    const lines = menuBtn.querySelectorAll('.line');
+                    lines.forEach(line => line.style.backgroundColor = '#000000');
+                }, 500); 
+            } else {
+                // 開く時
+                overlay.classList.add('open');
+                //display:flexになった直後にopacityを1にしてアニメーションさせる
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
+                    // ★メニューが開いている間、三本線ボタンの色を白にする
+                    const lines = menuBtn.querySelectorAll('.line');
+                    lines.forEach(line => line.style.backgroundColor = '#ffffff');
+                }, 10);
+            }
         }
+
         function toggleSection(id) {
             const content = document.getElementById(id);
-            const btn = event.currentTarget;
+            // event.currentTarget を使って、クリックされたボタン自身を特定する
+            const btn = event.currentTarget; 
             content.classList.toggle('show');
             btn.innerText = content.classList.contains('show') ? "CLOSE" : "VIEW ALL";
         }
