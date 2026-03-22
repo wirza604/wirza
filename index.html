@@ -19,74 +19,34 @@
         .menu-item:hover { color: #ff0000; }
 
         /* 共通設定：セクションごとの間隔 */
-        section { width: 100%; padding: 80px 0; display: flex; flex-direction: column; align-items: center; }
+        section { width: 100%; padding: 80px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .section-title-large { font-size: 60px; font-weight: 900; font-style: italic; line-height: 1; display: block; }
         .section-title-sub { font-size: 20px; font-weight: bold; margin-bottom: 30px; }
-        .content-placeholder { width: 90%; max-width: 1200px; min-height: 200px; border: 2px dashed rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; color: #888; text-align: center; }
+        .content-placeholder { width: 90%; max-width: 1200px; min-height: 200px; border: 2px dashed rgba(255,255,255,0.3); display: flex; justify-content: center; align-items: center; color: #eee; font-weight: bold; }
 
-        /* 【重要】動画エリアへのリンク設定 */
-        .top-video-link {
-            width: 98%;
-            max-width: 1400px;
-            display: block; /* リンク全体をブロック要素に */
-            text-decoration: none; /* 下線を消す */
-            margin-top: 20px;
-            cursor: pointer; /* マウスカーソルを指マークに */
-        }
+        /* メイン動画エリア */
+        .top-video { width: 98%; max-width: 1400px; aspect-ratio: 16 / 9; border: 5px solid #000; background: #000; margin-top: 20px; }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        .top-video {
-            width: 100%; /* 親要素(リンク)いっぱいまで広げる */
-            aspect-ratio: 16 / 9;
-            border: 5px solid #000;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1.5rem;
-            text-align: center;
-            position: relative;
-        }
-
-        /* YouTubeの動画リスト（プレビュー用） */
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: absolute; /* リンククリックを優先させるため */
-            top: 0;
-            left: 0;
-            pointer-events: none; /* iframe内のクリックイベントを無効化 */
-            z-index: 1; /* 動画は下層に */
-        }
-
-        /* リンクであることを伝えるオーバーレイ（CodePenなどでの確認用） */
-        .video-link-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0,0,0,0.4);
-            color: white;
-            z-index: 10; /* 最上層に配置して、ここをクリックさせる */
-            font-size: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        /* 【重要】各セクションの新しい色設定 */
         
-        .top-video-link:hover .video-link-overlay {
-            opacity: 1;
-        }
+        /* 1. ライブ（赤） */
+        .bg-red { background-color: #ff0000; color: #ffffff; }
 
-        /* 各セクションの色とデザイン */
-        .bg-red { background-color: #ff0000; color: #fff; }
-        .bg-white { background-color: #ffffff; color: #000; }
-        .bg-black { background-color: #111111; color: #fff; }
+        /* 2. ビデオ（紫） */
+        .bg-purple { background-color: #800080; color: #ffffff; }
+
+        /* 3. イベント（黄色） */
+        .bg-yellow { background-color: #ffd700; color: #000000; } /* 黄色は黒文字の方が見やすい */
+        .bg-yellow .section-title-large, 
+        .bg-yellow .section-title-sub, 
+        .bg-yellow .content-placeholder { color: #000000; border-color: rgba(0,0,0,0.1); }
+
+        /* 4. スケジュール（赤） */
+        /* .bg-red を再利用します */
+
+        /* 5. 視聴者参加型（オレンジ） */
+        .bg-orange { background-color: #ff8c00; color: #ffffff; }
     </style>
 </head>
 <body>
@@ -109,15 +69,9 @@
     </div>
 
     <main style="display: flex; flex-direction: column; align-items: center;">
-        <a href="https://m.youtube.com/channel/UCiNHIl4z-vZQzIDlnpjd5yw" target="_blank" class="top-video-link" title="ウィルザのYouTubeチャンネルを開く">
-            <div class="top-video">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA"></iframe>
-                
-                <div class="video-link-overlay">
-                    タップしてYouTubeチャンネルを開く
-                </div>
-            </div>
-        </a>
+        <div class="top-video">
+            <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA" allowfullscreen></iframe>
+        </div>
 
         <section id="live" class="bg-red">
             <span class="section-title-large">LIVE</span>
@@ -125,25 +79,25 @@
             <div class="content-placeholder">配信情報を準備中...</div>
         </section>
 
-        <section id="video" class="bg-white">
-            <span class="section-title-large" style="color:#000;">VIDEO</span>
+        <section id="video" class="bg-purple">
+            <span class="section-title-large">VIDEO</span>
             <span class="section-title-sub">動画</span>
             <div class="content-placeholder">おすすめ動画を準備中...</div>
         </section>
 
-        <section id="event" class="bg-black">
+        <section id="event" class="bg-yellow">
             <span class="section-title-large">EVENT</span>
             <span class="section-title-sub">イベント</span>
             <div class="content-placeholder">イベント情報を準備中...</div>
         </section>
 
-        <section id="schedule" class="bg-white">
-            <span class="section-title-large" style="color:#000;">SCHEDULE</span>
+        <section id="schedule" class="bg-red">
+            <span class="section-title-large">SCHEDULE</span>
             <span class="section-title-sub">スケジュール</span>
             <div class="content-placeholder">今週の予定を準備中...</div>
         </section>
 
-        <section id="entry" class="bg-red">
+        <section id="entry" class="bg-orange">
             <span class="section-title-large">PLAY TOGETHER</span>
             <span class="section-title-sub">視聴者参加型</span>
             <div class="content-placeholder">参加方法を準備中...</div>
