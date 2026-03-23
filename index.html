@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>ウィルザ (Wirza) 公式サイト | マイクラ実況・最新イベント情報</title>
-    <meta name="description" content="マイクラ実況者「ウィルザ」の公式ホームページです。ライブ配信スケジュール、動画更新情報、視聴者参加型企画などを発信中！">
-    <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, YouTube, ライブ, 参加型">
+    
+    <link rel="icon" href="favicon.png" type="image/png">
 
     <style>
-        /* スムーズにスクロールさせる魔法の1行 */
         html { scroll-behavior: smooth; }
-
         body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .site-title { font-size: 24px; font-weight: bold; }
@@ -19,38 +17,21 @@
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000000; }
 
-        /* 全画面メニュー */
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: rgba(0, 0, 0, 0.95); 
-            display: none; justify-content: center; align-items: center; 
-            z-index: 100; opacity: 0; 
-            transition: opacity 0.5s ease;
-        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 100; opacity: 0; transition: opacity 0.5s ease; }
         .overlay.open { display: flex; opacity: 1; }
-
         .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #ffffff; cursor: pointer; line-height: 1; }
         .close-btn:hover { color: #ff0000; }
 
         .menu-content { text-align: center; }
-        .menu-item { 
-            display: block; color: #ffffff; text-decoration: none; 
-            font-size: 32px; font-weight: bold; margin: 25px 0; 
-            transition: color 0.3s ease; 
-        }
+        .menu-item { display: block; color: #ffffff; text-decoration: none; font-size: 32px; font-weight: bold; margin: 25px 0; transition: color 0.3s ease; }
         .menu-item:hover { color: #ff0000; }
 
-        /* セクション共通 */
         section { width: 100%; padding: 100px 0 60px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 100px; }
         .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; }
         .section-title-sub { font-size: 18px; font-weight: bold; }
 
-        .view-all-btn {
-            background-color: #ffffff; color: #000000; border: none; cursor: pointer;
-            font-size: 13px; font-weight: bold; padding: 10px 22px; border-radius: 25px; 
-            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        .view-all-btn { background-color: #ffffff; color: #000000; border: none; cursor: pointer; font-size: 13px; font-weight: bold; padding: 10px 22px; border-radius: 25px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
         .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 18px; }
@@ -64,8 +45,9 @@
         .bg-yellow { background-color: #ffd700; color: #000; }
         .bg-yellow .view-all-btn { background-color: #000; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
+        .bg-green { background-color: #2e8b57; color: #fff; } /* ★パック用の緑色 */
 
-        #top { width: 100%; height: 0; } /* ホーム用の一番上の目印 */
+        #top { width: 100%; height: 0; }
         .top-video-link { width: 98%; max-width: 1400px; display: block; margin: 20px 0 100px 0; }
         .top-video { width: 100%; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
@@ -86,7 +68,7 @@
             <a href="#top" class="menu-item" onclick="closeMenu()">ホーム</a>
             <a href="#live" class="menu-item" onclick="closeMenu()">ライブ</a>
             <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="menu-item" onclick="closeMenu()">動画</a>
-            <a href="#event" class="menu-item" onclick="closeMenu()">イベント</a>
+            <a href="#pack" class="menu-item" onclick="closeMenu()">パック</a> <a href="#event" class="menu-item" onclick="closeMenu()">イベント</a>
             <a href="#schedule" class="menu-item" onclick="closeMenu()">スケジュール</a>
             <a href="#entry" class="menu-item" onclick="closeMenu()">視聴者参加型</a>
         </div>
@@ -107,6 +89,28 @@
             <div class="content-area">
                 <div class="card">最新ライブ1</div><div class="card">最新ライブ2</div>
                 <div class="more-content" id="live-more"><div class="card">過去ライブ3</div></div>
+            </div>
+        </section>
+
+        <section id="video" class="bg-purple">
+            <div class="section-header">
+                <div><span class="section-title-large">VIDEO</span><span class="section-title-sub">おすすめ動画</span></div>
+                <button class="view-all-btn" onclick="toggleSection('video-more')">VIEW ALL</button>
+            </div>
+            <div class="content-area">
+                <div class="card">人気動画1</div><div class="card">人気動画2</div>
+                <div class="more-content" id="video-more"><div class="card">もっと見る</div></div>
+            </div>
+        </section>
+
+        <section id="pack" class="bg-green">
+            <div class="section-header">
+                <div><span class="section-title-large">PACK</span><span class="section-title-sub">配布パック・アドオン</span></div>
+                <button class="view-all-btn" onclick="toggleSection('pack-more')">VIEW ALL</button>
+            </div>
+            <div class="content-area">
+                <div class="card">配布パック1</div><div class="card">配布パック2</div>
+                <div class="more-content" id="pack-more"><div class="card">配布パック3</div></div>
             </div>
         </section>
 
@@ -150,13 +154,11 @@
             overlay.style.display = 'flex';
             setTimeout(() => { overlay.classList.add('open'); }, 10);
         }
-
         function closeMenu() {
             const overlay = document.getElementById('overlay');
             overlay.classList.remove('open');
             setTimeout(() => { overlay.style.display = 'none'; }, 500);
         }
-
         function toggleSection(id) {
             const content = document.getElementById(id);
             content.classList.toggle('show');
