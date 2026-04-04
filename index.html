@@ -3,125 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO設定 -->
-    <title>ウィルザ (Wirza) 公式サイト | マイクラ実況・配布パック・質問コーナー</title>
-    <meta name="description" content="マイクラ実況者「ウィルザ」の公式ホームページ。最新のアドオン・配布パック情報、YouTubeライブ配信スケジュール、参加型イベント情報をまとめてチェック！">
-    <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, 配布パック, アドオン, YouTube">
-
-    <!-- アイコン設定（favicon.pngをアップロードしてください） -->
+    <title>ウィルザ (Wirza) 公式サイト | マイクラ実況・ダウンロード・質問コーナー</title>
     <link rel="icon" href="favicon.png" type="image/png">
-    
-    <!-- アイコンフォント読み込み -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* 全体設定 */
+        /* スタイルは前回の「ゆったり設定」を維持 */
         html { scroll-behavior: smooth; }
-        body { background-color: #ffffff; color: #000000; font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; overflow-x: hidden; }
-        
-        /* ヘッダー */
+        body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .site-title { font-size: 24px; font-weight: bold; margin: 0; }
+        .site-title { font-size: 24px; font-weight: bold; }
         .site-title a { text-decoration: none; color: #000; }
 
-        /* ハンバーガーメニュー */
-        .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
-        .menu-btn .line { width: 100%; height: 3px; background-color: #000000; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 100; opacity: 0; transition: opacity 0.5s ease; }
-        .overlay.open { display: flex; opacity: 1; }
-        .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #ffffff; cursor: pointer; line-height: 1; }
-        .menu-item { display: block; color: #ffffff; text-decoration: none; font-size: 32px; font-weight: bold; margin: 25px 0; transition: color 0.3s; }
-        .menu-item:hover { color: #ff0000; }
-
-        /* セクション（余白を広く調整） */
         section { width: 100%; padding: 150px 0 100px 0; display: flex; flex-direction: column; align-items: center; }
         .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
-        .section-title-sub { font-size: 18px; font-weight: bold; margin-bottom: 5px; display: block; }
-        
-        .view-all-btn { background-color: #ffffff; color: #000000; border: none; cursor: pointer; font-size: 13px; font-weight: bold; padding: 12px 25px; border-radius: 25px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .section-title-sub { font-size: 18px; font-weight: bold; display: block; }
 
-        /* コンテンツエリア（カードの間隔を広く調整） */
         .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; transition: transform 0.3s; }
-        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); }
+        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.3); }
 
-        /* 背景色バリエーション */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
+        .bg-orange { background-color: #ff8c00; color: #fff; }
 
-        /* 動画エリア */
         .top-video { width: 98%; max-width: 1400px; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; margin: 20px auto 50px; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* 質問コーナー用ポップアップ（モーダル） */
+        /* モーダル関連 */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); display: none; justify-content: center; align-items: center; z-index: 200; }
-        .modal-content { background-color: #1a1a1a; width: 90%; max-width: 800px; height: 80%; border-radius: 15px; position: relative; padding: 40px; color: #fff; overflow-y: auto; }
-        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 30px; color: #fff; cursor: pointer; }
-        .comment-item { border-bottom: 1px solid #333; padding: 15px 0; }
-        .comment-user { font-weight: bold; color: #ffd700; margin-bottom: 5px; }
+        .modal-content { background-color: #1a1a1a; width: 90%; max-width: 800px; height: 80%; border-radius: 15px; padding: 40px; color: #fff; overflow-y: auto; position: relative; }
+        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer; }
 
-        /* フッター */
-        footer { background-color: #000; color: #fff; padding: 80px 20px; width: 100%; box-sizing: border-box; margin-top: 100px; }
+        footer { background-color: #000; color: #fff; padding: 80px 20px; margin-top: 100px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-column h4 { font-size: 18px; margin-bottom: 15px; border-left: 4px solid #fff; padding-left: 10px; }
-        .footer-column ul { list-style: none; padding: 0; margin: 0; }
-        .footer-column ul li { margin-bottom: 10px; }
-        .footer-column ul li a { color: #ccc; text-decoration: none; cursor: pointer; font-size: 14px; transition: color 0.3s; }
-        .footer-column ul li a:hover { color: #fff; text-decoration: underline; }
-        
-        .footer-bottom { border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .footer-logo { font-size: 32px; font-weight: 900; }
         .footer-sns { display: flex; gap: 20px; font-size: 28px; }
-        .footer-sns a { color: #fff; text-decoration: none; transition: transform 0.3s; }
-        .footer-sns a:hover { transform: translateY(-5px); color: #ff0000; }
+        .footer-sns a { color: #fff; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <header>
         <h1 class="site-title"><a href="#">WIRZA OFFICIAL SITE</a></h1>
-        <div class="menu-btn" onclick="openMenu()"><div class="line"></div><div class="line"></div><div class="line"></div></div>
     </header>
-
-    <div class="overlay" id="overlay">
-        <div class="close-btn" onclick="closeMenu()">&times;</div>
-        <nav class="menu-content">
-            <a href="#" class="menu-item" onclick="closeMenu()">HOME</a>
-            <a href="#live" class="menu-item" onclick="closeMenu()">LIVE</a>
-            <a href="#pack" class="menu-item" onclick="closeMenu()">PACK</a>
-            <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="menu-item">VIDEOS</a>
-        </nav>
-    </div>
 
     <main>
         <div class="top-video">
             <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA" title="YouTube"></iframe>
         </div>
 
+        <!-- 1. LIVE セクション -->
         <section id="live" class="bg-red">
             <div class="section-header">
-                <h2><span class="section-title-sub">ライブ情報</span><span class="section-title-large">LIVE</span></h2>
-                <button class="view-all-btn">VIEW ALL</button>
+                <h2><span class="section-title-sub">ライブ配信</span><span class="section-title-large">LIVE</span></h2>
             </div>
             <div class="content-area">
                 <div class="card">最新ライブ1</div>
                 <div class="card">最新ライブ2</div>
-                <div class="card">最新ライブ3</div>
             </div>
         </section>
 
-        <section id="pack" class="bg-green">
+        <!-- 2. VIDEO セクション (復活) -->
+        <section id="video" class="bg-purple">
             <div class="section-header">
-                <h2><span class="section-title-sub">配布パック・アドオン</span><span class="section-title-large">PACK</span></h2>
-                <button class="view-all-btn">VIEW ALL</button>
+                <h2><span class="section-title-sub">おすすめ動画</span><span class="section-title-large">VIDEO</span></h2>
             </div>
             <div class="content-area">
-                <div class="card">配布パック1</div>
-                <div class="card">配布パック2</div>
-                <div class="card">配布パック3</div>
+                <div class="card">人気動画1</div>
+                <div class="card">人気動画2</div>
+            </div>
+        </section>
+
+        <!-- 3. DOWNLOAD セクション (旧PACKから変更) -->
+        <section id="download" class="bg-green">
+            <div class="section-header">
+                <h2><span class="section-title-sub">アドオン・配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
+            </div>
+            <div class="content-area">
+                <div class="card">アドオン1</div>
+                <div class="card">ワールド配布1</div>
+            </div>
+        </section>
+
+        <!-- 4. SCHEDULE セクション (復活) -->
+        <section id="schedule" class="bg-orange">
+            <div class="section-header">
+                <h2><span class="section-title-sub">配信スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
+            </div>
+            <div class="content-area">
+                <div class="card">今週の予定</div>
             </div>
         </section>
     </main>
@@ -132,20 +104,20 @@
                 <h4>CONTENTS</h4>
                 <ul>
                     <li><a href="#live">LIVE / ライブ</a></li>
-                    <li><a href="https://www.youtube.com/@wirza-604/videos" target="_blank">VIDEOS / 動画</a></li>
-                    <li><a href="#pack">PACK / パック</a></li>
+                    <li><a href="#video">VIDEO / 動画</a></li>
+                    <li><a href="#download">DOWNLOAD / ダウンロード</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h4>SUPPORT</h4>
                 <ul>
                     <li><a onclick="openQA()">QA / 質問コーナー</a></li>
-                    <li><a href="#">GUIDELINE / ガイドライン</a></li>
+                    <li><a href="#schedule">SCHEDULE / 日程</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="footer-logo">WIRZA</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 50px; border-top: 1px solid #333; padding-top: 30px;">
+            <div style="font-size: 32px; font-weight: 900;">WIRZA</div>
             <div class="footer-sns">
                 <a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fab fa-youtube"></i></a>
                 <a href="https://x.com/Wirza604" target="_blank"><i class="fab fa-x-twitter"></i></a>
@@ -153,28 +125,21 @@
                 <a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
-        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 30px;">&copy; 2026 WIRZA.</p>
     </footer>
 
     <!-- 質問コーナーポップアップ -->
     <div class="modal-overlay" id="qaModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeQA()">&times; 閉じる</span>
-            <h2 style="border-bottom: 2px solid #ffd700; padding-bottom: 10px;">質問コーナー</h2>
-            <div class="comment-item">
-                <div class="comment-user">質問</div>
-                <div class="comment-text">ここに質問が入ります。</div>
-            </div>
-            <div class="comment-item">
-                <div class="comment-user" style="color:#ff0000">ウィルザ</div>
-                <div class="comment-text">ここに回答が入ります！</div>
+            <h2>質問コーナー</h2>
+            <div style="border-bottom: 1px solid #333; padding: 15px 0;">
+                <div style="color: #ffd700; font-weight: bold;">質問お待ちしています！</div>
+                <div style="font-size: 14px;">ここに回答が入ります。</div>
             </div>
         </div>
     </div>
 
     <script>
-        function openMenu() { document.getElementById('overlay').style.display = 'flex'; setTimeout(() => document.getElementById('overlay').classList.add('open'), 10); }
-        function closeMenu() { document.getElementById('overlay').classList.remove('open'); setTimeout(() => document.getElementById('overlay').style.display = 'none', 500); }
         function openQA() { document.getElementById('qaModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
         function closeQA() { document.getElementById('qaModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
     </script>
