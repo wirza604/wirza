@@ -11,124 +11,164 @@
         html { scroll-behavior: smooth; }
         body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* ヘッダーの設定 */
+        /* ヘッダー */
         header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 20px 30px; 
-            position: sticky; 
-            top: 0; 
-            background: white; 
-            z-index: 150; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 30px; position: sticky; top: 0; background: white; 
+            z-index: 150; box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
         }
         .site-title { font-size: 22px; font-weight: bold; margin: 0; }
         .site-title a { text-decoration: none; color: #000; }
 
-        /* 三本線（ハンバーガーメニュー）のスタイル */
-        .menu-btn { 
-            width: 30px; 
-            height: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            cursor: pointer; 
-            z-index: 200;
-        }
-        .menu-btn .line { width: 100%; height: 3px; background-color: #000; transition: 0.3s; }
+        /* ハンバーガーメニュー */
+        .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
+        .menu-btn .line { width: 100%; height: 3px; background-color: #000; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 180; }
+        .menu-item { display: block; color: #fff; text-decoration: none; font-size: 32px; font-weight: bold; margin: 25px 0; text-align: center; }
 
-        /* メニューが開いた時の画面（オーバーレイ） */
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: rgba(0, 0, 0, 0.95); 
-            display: none; justify-content: center; align-items: center; 
-            z-index: 180; 
+        /* ★一番上の「おすすめ動画」エリア */
+        .featured-video {
+            width: 100%; background-color: #000; padding: 40px 0;
+            display: flex; justify-content: center;
         }
-        .menu-item { 
-            display: block; color: #fff; text-decoration: none; 
-            font-size: 32px; font-weight: bold; margin: 25px 0; 
-            text-align: center;
+        .video-container {
+            width: 90%; max-width: 1000px; aspect-ratio: 16 / 9;
+            background: #333; border: 4px solid #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        /* セクション設定（ゆったり余白） */
-        section { width: 100%; padding: 150px 0 100px 0; display: flex; flex-direction: column; align-items: center; }
-        .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+        /* ★セクション（項目の間を 200px に広げました） */
+        section { 
+            width: 100%; 
+            padding: 200px 0; /* ここで上下の間隔をめちゃくちゃ開けています */
+            display: flex; flex-direction: column; align-items: center; 
+        }
+        .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
+        
+        /* 背景色 */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
-        .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; transition: 0.3s; }
+        /* カードエリア */
+        .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
+        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; transition: 0.3s; font-size: 20px; }
+        .card:hover { transform: scale(1.05); background: rgba(255,255,255,0.25); }
 
-        /* 質問コーナー（モーダル） */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); display: none; justify-content: center; align-items: center; z-index: 300; }
-        .modal-content { background-color: #1a1a1a; width: 85%; max-width: 700px; border-radius: 15px; padding: 40px; color: #fff; position: relative; }
-        
-        footer { background-color: #000; color: #fff; padding: 80px 20px; margin-top: 100px; }
-        .footer-sns { display: flex; gap: 20px; font-size: 28px; }
-        .footer-sns a { color: #fff; text-decoration: none; }
+        /* ★フッター（項目を復活） */
+        footer { background-color: #000; color: #fff; padding: 100px 20px; }
+        .footer-container { 
+            max-width: 1200px; margin: 0 auto; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 40px;
+        }
+        .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 20px; letter-spacing: 2px; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .footer-column ul li a:hover { text-decoration: underline; }
+
+        .footer-bottom { 
+            max-width: 1200px; margin: 60px auto 0; padding-top: 40px; 
+            border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; 
+        }
+        .footer-sns { display: flex; gap: 25px; font-size: 26px; }
+        .footer-sns a { color: #fff; text-decoration: none; transition: 0.3s; }
+        .footer-sns a:hover { color: #ff0000; }
+
+        /* 質問コーナー */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 300; }
+        .modal-content { background-color: #1a1a1a; width: 85%; max-width: 700px; border-radius: 20px; padding: 40px; color: #fff; position: relative; }
     </style>
 </head>
 <body>
 
     <header>
-        <!-- 左上の文字を「ウィルザ公式サイト」に変更 -->
         <h1 class="site-title"><a href="#">ウィルザ公式サイト</a></h1>
-        <!-- 三本線ボタン -->
-        <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+        <div class="menu-btn" onclick="toggleMenu()">
+            <div class="line"></div><div class="line"></div><div class="line"></div>
         </div>
     </header>
 
-    <!-- 三本線を押した時に出るメニュー -->
     <div class="overlay" id="menuOverlay">
         <nav>
             <a href="#live" class="menu-item" onclick="toggleMenu()">LIVE</a>
             <a href="#video" class="menu-item" onclick="toggleMenu()">VIDEO</a>
             <a href="#download" class="menu-item" onclick="toggleMenu()">DOWNLOAD</a>
             <a href="#schedule" class="menu-item" onclick="toggleMenu()">SCHEDULE</a>
-            <div class="menu-item" onclick="toggleMenu()" style="color: #ff0000; cursor: pointer; margin-top: 50px;">CLOSE ×</div>
+            <div class="menu-item" onclick="toggleMenu()" style="color:red; cursor:pointer;">CLOSE ×</div>
         </nav>
     </div>
 
     <main>
+        <!-- おすすめ動画エリア -->
+        <div class="featured-video">
+            <div class="video-container">
+                <!-- ここに最新動画やおすすめ動画のURLを入れてね -->
+                <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA" title="Featured Video"></iframe>
+            </div>
+        </div>
+
         <section id="live" class="bg-red">
             <div class="section-header">
-                <h2><span style="font-size:18px; font-weight:bold; display:block;">ライブ配信</span><span class="section-title-large">LIVE</span></h2>
+                <h2><span style="display:block; font-size:16px;">最新のライブ配信</span><span class="section-title-large">LIVE</span></h2>
             </div>
-            <div class="content-area"><div class="card">最新ライブ</div><div class="card">最新ライブ</div></div>
+            <div class="content-area"><div class="card">LIVE 1</div><div class="card">LIVE 2</div></div>
         </section>
 
         <section id="video" class="bg-purple">
             <div class="section-header">
-                <h2><span style="font-size:18px; font-weight:bold; display:block;">おすすめ動画</span><span class="section-title-large">VIDEO</span></h2>
+                <h2><span style="display:block; font-size:16px;">おすすめ動画</span><span class="section-title-large">VIDEO</span></h2>
             </div>
-            <div class="content-area"><div class="card">人気動画</div><div class="card">人気動画</div></div>
+            <div class="content-area"><div class="card">VIDEO 1</div><div class="card">VIDEO 2</div></div>
         </section>
 
         <section id="download" class="bg-green">
             <div class="section-header">
-                <h2><span style="font-size:18px; font-weight:bold; display:block;">アドオン・配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
+                <h2><span style="display:block; font-size:16px;">アドオン・配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
             </div>
-            <div class="content-area"><div class="card">アドオン</div><div class="card">ワールド</div></div>
+            <div class="content-area"><div class="card">ADD-ON</div><div class="card">WORLD</div></div>
         </section>
 
         <section id="schedule" class="bg-orange">
             <div class="section-header">
-                <h2><span style="font-size:18px; font-weight:bold; display:block;">配信スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
+                <h2><span style="display:block; font-size:16px;">配信スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
             </div>
-            <div class="content-area"><div class="card">今週の予定</div></div>
+            <div class="content-area"><div class="card">WEEKLY PLAN</div></div>
         </section>
     </main>
 
     <footer>
-        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
-            <div style="font-size: 28px; font-weight: 900;">WIRZA</div>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>CONTENTS</h4>
+                <ul>
+                    <li><a href="#live">LIVE / ライブ</a></li>
+                    <li><a href="#video">VIDEO / 動画</a></li>
+                    <li><a href="#download">DOWNLOAD / ダウンロード</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>SUPPORT</h4>
+                <ul>
+                    <li><a onclick="openQA()">QA / 質問コーナー</a></li>
+                    <li><a href="#schedule">SCHEDULE / 日程</a></li>
+                    <li><a href="#">GUIDELINE / ガイドライン</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>SNS</h4>
+                <ul>
+                    <li><a href="https://x.com/Wirza604" target="_blank">X (Twitter)</a></li>
+                    <li><a href="https://www.youtube.com/@wirza-604" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@wirza604" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div style="font-size: 32px; font-weight: 900;">WIRZA</div>
             <div class="footer-sns">
                 <a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fab fa-youtube"></i></a>
                 <a href="https://x.com/Wirza604" target="_blank"><i class="fab fa-x-twitter"></i></a>
@@ -136,29 +176,23 @@
                 <a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
-        <p style="text-align: center; margin-top: 40px;"><a onclick="openQA()" style="cursor:pointer; color:#ccc;">QA / 質問コーナーを開く</a></p>
+        <p style="text-align: center; font-size: 12px; color: #444; margin-top: 40px;">&copy; 2026 WIRZA.</p>
     </footer>
 
-    <!-- 質問コーナー -->
     <div class="modal-overlay" id="qaModal">
         <div class="modal-content">
-            <span onclick="closeQA()" style="position:absolute; top:20px; right:20px; cursor:pointer;">× 閉じる</span>
+            <span onclick="closeQA()" style="position:absolute; top:20px; right:20px; cursor:pointer; font-size:24px;">×</span>
             <h2>質問コーナー</h2>
-            <p>準備中...</p>
+            <p>ここにコメントページを表示予定です。</p>
+            <button onclick="closeQA()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">閉じる</button>
         </div>
     </div>
 
     <script>
-        // メニューの開閉
         function toggleMenu() {
             const overlay = document.getElementById('menuOverlay');
-            if (overlay.style.display === 'flex') {
-                overlay.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            } else {
-                overlay.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+            document.body.style.overflow = (overlay.style.display === 'flex') ? 'hidden' : 'auto';
         }
         function openQA() { document.getElementById('qaModal').style.display = 'flex'; }
         function closeQA() { document.getElementById('qaModal').style.display = 'none'; }
