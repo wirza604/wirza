@@ -3,156 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ウィルザ (Wirza) 公式サイト | マイクラ実況・最新イベント情報</title>
+    
+    <!-- SEO設定 -->
+    <title>ウィルザ (Wirza) 公式サイト | マイクラ実況・配布パック・質問コーナー</title>
+    <meta name="description" content="マイクラ実況者「ウィルザ」の公式ホームページ。最新のアドオン・配布パック情報、YouTubeライブ配信スケジュール、参加型イベント情報をまとめてチェック！">
+    <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, 配布パック, アドオン, YouTube">
+
+    <!-- アイコン設定（favicon.pngをアップロードしてください） -->
     <link rel="icon" href="favicon.png" type="image/png">
+    
+    <!-- アイコンフォント読み込み -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+        /* 全体設定 */
         html { scroll-behavior: smooth; }
-        body { background-color: #ffffff; color: #000000; font-family: sans-serif; margin: 0; overflow-x: hidden; }
+        body { background-color: #ffffff; color: #000000; font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; overflow-x: hidden; }
         
         /* ヘッダー */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .site-title { font-size: 24px; font-weight: bold; }
-        
-        /* メニュー関連 */
+        .site-title { font-size: 24px; font-weight: bold; margin: 0; }
+        .site-title a { text-decoration: none; color: #000; }
+
+        /* ハンバーガーメニュー */
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000000; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); display: none; justify-content: center; align-items: center; z-index: 100; opacity: 0; transition: opacity 0.5s ease; }
         .overlay.open { display: flex; opacity: 1; }
         .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #ffffff; cursor: pointer; line-height: 1; }
-        .menu-item { display: block; color: #ffffff; text-decoration: none; font-size: 32px; font-weight: bold; margin: 25px 0; transition: color 0.3s ease; }
+        .menu-item { display: block; color: #ffffff; text-decoration: none; font-size: 32px; font-weight: bold; margin: 25px 0; transition: color 0.3s; }
         .menu-item:hover { color: #ff0000; }
 
-        /* セクション共通 */
-        section { width: 100%; padding: 100px 0 60px 0; display: flex; flex-direction: column; align-items: center; }
-        .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
-        .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; }
-        .section-title-sub { font-size: 18px; font-weight: bold; }
-        .view-all-btn { background-color: #ffffff; color: #000000; border: none; cursor: pointer; font-size: 13px; font-weight: bold; padding: 10px 22px; border-radius: 25px; text-transform: uppercase; }
+        /* セクション（余白を広く調整） */
+        section { width: 100%; padding: 150px 0 100px 0; display: flex; flex-direction: column; align-items: center; }
+        .section-header { width: 90%; max-width: 1200px; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+        .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
+        .section-title-sub { font-size: 18px; font-weight: bold; margin-bottom: 5px; display: block; }
+        
+        .view-all-btn { background-color: #ffffff; color: #000000; border: none; cursor: pointer; font-size: 13px; font-weight: bold; padding: 12px 25px; border-radius: 25px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-        .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; }
-        .more-content { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
-        .more-content.show { max-height: 1000px; margin-top: 20px; }
+        /* コンテンツエリア（カードの間隔を広く調整） */
+        .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); }
 
-        /* 各色 */
+        /* 背景色バリエーション */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
-        .bg-yellow { background-color: #ffd700; color: #000; }
-        .bg-yellow .view-all-btn { background-color: #000; color: #fff; }
-        .bg-orange { background-color: #ff8c00; color: #fff; }
 
-        /* ★フッターのデザイン（ドズル社風） */
-        footer { background-color: #000; color: #fff; padding: 60px 20px; width: 100%; box-sizing: border-box; }
+        /* 動画エリア */
+        .top-video { width: 98%; max-width: 1400px; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; margin: 20px auto 50px; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* 質問コーナー用ポップアップ（モーダル） */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); display: none; justify-content: center; align-items: center; z-index: 200; }
+        .modal-content { background-color: #1a1a1a; width: 90%; max-width: 800px; height: 80%; border-radius: 15px; position: relative; padding: 40px; color: #fff; overflow-y: auto; }
+        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 30px; color: #fff; cursor: pointer; }
+        .comment-item { border-bottom: 1px solid #333; padding: 15px 0; }
+        .comment-user { font-weight: bold; color: #ffd700; margin-bottom: 5px; }
+
+        /* フッター */
+        footer { background-color: #000; color: #fff; padding: 80px 20px; width: 100%; box-sizing: border-box; margin-top: 100px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-column h4 { font-size: 18px; margin-bottom: 10px; border-left: 4px solid #fff; padding-left: 10px; }
+        .footer-column h4 { font-size: 18px; margin-bottom: 15px; border-left: 4px solid #fff; padding-left: 10px; }
         .footer-column ul { list-style: none; padding: 0; margin: 0; }
-        .footer-column ul li { margin-bottom: 8px; }
-        .footer-column ul li a { color: #ccc; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .footer-column ul li { margin-bottom: 10px; }
+        .footer-column ul li a { color: #ccc; text-decoration: none; cursor: pointer; font-size: 14px; transition: color 0.3s; }
         .footer-column ul li a:hover { color: #fff; text-decoration: underline; }
-
+        
         .footer-bottom { border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .footer-logo { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
-        .footer-sns { display: flex; gap: 20px; font-size: 24px; }
+        .footer-logo { font-size: 32px; font-weight: 900; }
+        .footer-sns { display: flex; gap: 20px; font-size: 28px; }
         .footer-sns a { color: #fff; text-decoration: none; transition: transform 0.3s; }
         .footer-sns a:hover { transform: translateY(-5px); color: #ff0000; }
-
-        #top { width: 100%; height: 0; }
-        .top-video { width: 98%; max-width: 1400px; aspect-ratio: 16 / 9; border: 6px solid #000; background: #000; margin: 20px auto 100px; }
-        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
-    <div id="top"></div>
     <header>
-        <div class="site-title">ウィルザ公式サイト</div>
+        <h1 class="site-title"><a href="#">WIRZA OFFICIAL SITE</a></h1>
         <div class="menu-btn" onclick="openMenu()"><div class="line"></div><div class="line"></div><div class="line"></div></div>
     </header>
 
     <div class="overlay" id="overlay">
         <div class="close-btn" onclick="closeMenu()">&times;</div>
-        <div class="menu-content">
-            <a href="#top" class="menu-item" onclick="closeMenu()">ホーム</a>
-            <a href="#live" class="menu-item" onclick="closeMenu()">ライブ</a>
-            <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="menu-item" onclick="closeMenu()">動画</a>
-            <a href="#pack" class="menu-item" onclick="closeMenu()">パック</a>
-            <a href="#event" class="menu-item" onclick="closeMenu()">イベント</a>
-            <a href="#schedule" class="menu-item" onclick="closeMenu()">スケジュール</a>
-            <a href="#entry" class="menu-item" onclick="closeMenu()">視聴者参加型</a>
-        </div>
+        <nav class="menu-content">
+            <a href="#" class="menu-item" onclick="closeMenu()">HOME</a>
+            <a href="#live" class="menu-item" onclick="closeMenu()">LIVE</a>
+            <a href="#pack" class="menu-item" onclick="closeMenu()">PACK</a>
+            <a href="https://www.youtube.com/@wirza-604/videos" target="_blank" class="menu-item">VIDEOS</a>
+        </nav>
     </div>
 
     <main>
         <div class="top-video">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA"></iframe>
+            <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA" title="YouTube"></iframe>
         </div>
 
         <section id="live" class="bg-red">
             <div class="section-header">
-                <div><span class="section-title-large">LIVE</span><span class="section-title-sub">ライブ情報</span></div>
-                <button class="view-all-btn" onclick="toggleSection('live-more')">VIEW ALL</button>
+                <h2><span class="section-title-sub">ライブ情報</span><span class="section-title-large">LIVE</span></h2>
+                <button class="view-all-btn">VIEW ALL</button>
             </div>
             <div class="content-area">
-                <div class="card">最新ライブ1</div><div class="card">最新ライブ2</div>
-                <div class="more-content" id="live-more"><div class="card">過去ライブ3</div></div>
-            </div>
-        </section>
-
-        <section id="video" class="bg-purple">
-            <div class="section-header">
-                <div><span class="section-title-large">VIDEO</span><span class="section-title-sub">おすすめ動画</span></div>
-                <button class="view-all-btn" onclick="toggleSection('video-more')">VIEW ALL</button>
-            </div>
-            <div class="content-area">
-                <div class="card">人気動画1</div><div class="card">人気動画2</div>
-                <div class="more-content" id="video-more"><div class="card">もっと見る</div></div>
+                <div class="card">最新ライブ1</div>
+                <div class="card">最新ライブ2</div>
+                <div class="card">最新ライブ3</div>
             </div>
         </section>
 
         <section id="pack" class="bg-green">
             <div class="section-header">
-                <div><span class="section-title-large">PACK</span><span class="section-title-sub">配布パック</span></div>
-                <button class="view-all-btn" onclick="toggleSection('pack-more')">VIEW ALL</button>
+                <h2><span class="section-title-sub">配布パック・アドオン</span><span class="section-title-large">PACK</span></h2>
+                <button class="view-all-btn">VIEW ALL</button>
             </div>
             <div class="content-area">
-                <div class="card">配布パック1</div><div class="card">配布パック2</div>
-                <div class="more-content" id="pack-more"><div class="card">配布パック3</div></div>
-            </div>
-        </section>
-
-        <section id="event" class="bg-yellow">
-            <div class="section-header">
-                <div><span class="section-title-large">EVENT</span><span class="section-title-sub">イベント</span></div>
-                <button class="view-all-btn" onclick="toggleSection('event-more')">VIEW ALL</button>
-            </div>
-            <div class="content-area">
-                <div class="card">イベント1</div><div class="card">イベント2</div>
-                <div class="more-content" id="event-more"><div class="card">イベント3</div></div>
-            </div>
-        </section>
-
-        <section id="schedule" class="bg-red">
-            <div class="section-header">
-                <div><span class="section-title-large">SCHEDULE</span><span class="section-title-sub">スケジュール</span></div>
-                <button class="view-all-btn" onclick="toggleSection('sch-more')">VIEW ALL</button>
-            </div>
-            <div class="content-area">
-                <div class="card">月曜：配信</div><div class="card">水曜：動画</div>
-                <div class="more-content" id="sch-more"><div class="card">土曜：ライブ</div></div>
-            </div>
-        </section>
-
-        <section id="entry" class="bg-orange">
-            <div class="section-header">
-                <div><span class="section-title-large">ENTRY</span><span class="section-title-sub">視聴者参加型</span></div>
-                <button class="view-all-btn" onclick="toggleSection('entry-more')">VIEW ALL</button>
-            </div>
-            <div class="content-area">
-                <div class="card">ルール</div><div class="card">参加方法</div>
-                <div class="more-content" id="entry-more"><div class="card">Discord</div></div>
+                <div class="card">配布パック1</div>
+                <div class="card">配布パック2</div>
+                <div class="card">配布パック3</div>
             </div>
         </section>
     </main>
@@ -165,43 +134,49 @@
                     <li><a href="#live">LIVE / ライブ</a></li>
                     <li><a href="https://www.youtube.com/@wirza-604/videos" target="_blank">VIDEOS / 動画</a></li>
                     <li><a href="#pack">PACK / パック</a></li>
-                    <li><a href="#event">EVENTS / イベント</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h4>SUPPORT</h4>
                 <ul>
-                    <li><a href="#schedule">SCHEDULE / 日程</a></li>
-                    <li><a href="#entry">ENTRY / 参加型</a></li>
-                    <li><a href="#">FAQ / よくある質問</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>ABOUT</h4>
-                <ul>
-                    <li><a href="#">ウィルザとは</a></li>
-                    <li><a href="#">ガイドライン</a></li>
-                    <li><a href="#">プライバシーポリシー</a></li>
+                    <li><a onclick="openQA()">QA / 質問コーナー</a></li>
+                    <li><a href="#">GUIDELINE / ガイドライン</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
             <div class="footer-logo">WIRZA</div>
             <div class="footer-sns">
                 <a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="https://x.com/Wirza604" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/wirza604/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
-        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 30px;">&copy; 2026 WIRZA. All Rights Reserved.</p>
+        <p style="text-align: center; font-size: 12px; color: #666; margin-top: 30px;">&copy; 2026 WIRZA.</p>
     </footer>
 
+    <!-- 質問コーナーポップアップ -->
+    <div class="modal-overlay" id="qaModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeQA()">&times; 閉じる</span>
+            <h2 style="border-bottom: 2px solid #ffd700; padding-bottom: 10px;">質問コーナー</h2>
+            <div class="comment-item">
+                <div class="comment-user">質問</div>
+                <div class="comment-text">ここに質問が入ります。</div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-user" style="color:#ff0000">ウィルザ</div>
+                <div class="comment-text">ここに回答が入ります！</div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function openMenu() { const overlay = document.getElementById('overlay'); overlay.style.display = 'flex'; setTimeout(() => { overlay.classList.add('open'); }, 10); }
-        function closeMenu() { const overlay = document.getElementById('overlay'); overlay.classList.remove('open'); setTimeout(() => { overlay.style.display = 'none'; }, 500); }
-        function toggleSection(id) { const content = document.getElementById(id); content.classList.toggle('show'); event.currentTarget.innerText = content.classList.contains('show') ? "CLOSE" : "VIEW ALL"; }
+        function openMenu() { document.getElementById('overlay').style.display = 'flex'; setTimeout(() => document.getElementById('overlay').classList.add('open'), 10); }
+        function closeMenu() { document.getElementById('overlay').classList.remove('open'); setTimeout(() => document.getElementById('overlay').style.display = 'none', 500); }
+        function openQA() { document.getElementById('qaModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeQA() { document.getElementById('qaModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
     </script>
 </body>
 </html>
