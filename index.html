@@ -34,7 +34,7 @@
         .site-title a { text-decoration: none; color: #000; font-weight: bold; font-size: 20px; transition: 0.3s; }
         .site-title a:hover { color: #ff0000; }
 
-        /* メニューアニメーション */
+        /* メニュー */
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000; transition: 0.3s; }
         .menu-btn:hover .line { background-color: #ff0000; }
@@ -54,24 +54,24 @@
         .menu-item:hover { color: #ff0000; }
 
         /* おすすめ動画 */
-        .featured-video { width: 100%; background-color: #000; padding: 100px 0; display: flex; justify-content: center; }
+        .featured-video { width: 100%; background-color: #000; padding: 60px 0; display: flex; justify-content: center; }
         .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* ★ セクション設定：間隔を白くするために margin を使用 ★ */
+        /* ★ セクション設定：間隔を1cm(約40px)に調整 ★ */
         section { 
             width: 100%; 
-            padding: 150px 0; /* セクション内の広さ */
-            margin-bottom: 400px; /* ★ セクション同士の間の白い空間 ★ */
+            padding: 100px 0; /* セクション内の上下の広さ */
+            margin-bottom: 40px; /* ★ セクション同士の間の白い空間（約1cm） ★ */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
         }
 
-        .section-header { width: 90%; max-width: 1200px; margin-bottom: 80px; }
-        .section-title-large { font-size: clamp(40px, 10vw, 75px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
+        .section-header { width: 90%; max-width: 1200px; margin-bottom: 40px; }
+        .section-title-large { font-size: clamp(32px, 8vw, 60px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
         
-        /* セクションカラー設定 */
+        /* セクションカラー */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
@@ -79,28 +79,28 @@
         .bg-blue { background-color: #1e4185; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
-        .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
-        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; transition: 0.3s; color: inherit; text-decoration: none; }
+        .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 18px; transition: 0.3s; color: inherit; text-decoration: none; }
         
         /* ホバーで赤色 */
-        .card:hover { transform: translateY(-15px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
+        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
 
-        /* フッター（最後のセクションの余白を消すため） */
+        /* 最後のセクションの余白調整 */
         #schedule { margin-bottom: 0; }
 
-        footer { background-color: #000; color: #fff; padding: 120px 20px; margin-top: 400px; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; }
-        .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 25px; border-left: 3px solid #fff; padding-left: 10px; }
+        footer { background-color: #000; color: #fff; padding: 80px 20px; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; }
+        .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 20px; border-left: 3px solid #fff; padding-left: 10px; }
         .footer-column ul { list-style: none; padding: 0; }
-        .footer-column ul li { margin-bottom: 15px; }
+        .footer-column ul li { margin-bottom: 12px; }
         .footer-column ul li a { color: #fff; text-decoration: none; transition: 0.3s; }
         .footer-column ul li a:hover { color: #ff0000; }
 
-        .footer-bottom { max-width: 1200px; margin: 80px auto 0; padding-top: 40px; border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .footer-logo { font-size: 32px; font-weight: 900; }
-        .footer-sns { display: flex; gap: 25px; font-size: 28px; }
+        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .footer-logo { font-size: 28px; font-weight: 900; }
+        .footer-sns { display: flex; gap: 20px; font-size: 24px; }
         .footer-sns a { color: #fff; transition: 0.3s; }
-        .footer-sns a:hover { color: #ff0000; transform: scale(1.2); }
+        .footer-sns a:hover { color: #ff0000; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -133,42 +133,42 @@
 
         <section id="live" class="bg-red">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2>
+                <h2><span style="display:block; font-size:14px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">LIVE配信を観る</a><a href="#" class="card">アーカイブ一覧</a></div>
         </section>
 
         <section id="video" class="bg-purple">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">おすすめ動画</span><span class="section-title-large">VIDEO</span></h2>
+                <h2><span style="display:block; font-size:14px;">おすすめ動画</span><span class="section-title-large">VIDEO</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">最新の動画</a><a href="#" class="card">人気の動画</a></div>
         </section>
 
         <section id="download" class="bg-green">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
+                <h2><span style="display:block; font-size:14px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">アドオン配布</a><a href="#" class="card">スキン/マップ</a></div>
         </section>
 
         <section id="event" class="bg-yellow">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">イベント情報</span><span class="section-title-large">EVENT</span></h2>
+                <h2><span style="display:block; font-size:14px;">イベント情報</span><span class="section-title-large">EVENT</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">開催中の企画</a><a href="#" class="card">過去のイベント</a></div>
         </section>
 
         <section id="news" class="bg-blue">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">最新ニュース</span><span class="section-title-large">NEWS</span></h2>
+                <h2><span style="display:block; font-size:14px;">最新ニュース</span><span class="section-title-large">NEWS</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">重要なお知らせ</a><a href="#" class="card">アップデート情報</a></div>
         </section>
 
         <section id="schedule" class="bg-orange">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
+                <h2><span style="display:block; font-size:14px;">スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">今週の予定表</a></div>
         </section>
