@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- ★ 検索用タグ (SEO) ★ -->
     <title>ウィルザ公式サイト | WIRZA OFFICIAL SITE</title>
     <meta name="description" content="マイクラ実況者「ウィルザ」の公式サイト。最新のアドオン配布、ライブスケジュール、イベント情報をチェック！">
     <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, アドオン, 配布パック, YouTube">
 
+    <!-- ★ SNSシェア用タグ (OGP) ★ -->
     <meta property="og:title" content="ウィルザ公式サイト | WIRZA OFFICIAL SITE">
-    <meta property="og:description" content="マイクラ実況者「ウィルザ」の最新情報をお届けします！">
+    <meta property="og:description" content="マイクラ実況者「ウィルザ」の最新情報をチェック！アドオン配布中！">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wirza604.github.io/wirza/">
-    <meta property="og:image" content="https://wirza604.github.io/wirza/favicon.png"> <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://wirza604.github.io/wirza/favicon.png"> <!-- アイコンをシェア画像に指定 -->
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@Wirza604">
 
+    <!-- アイコン設定（ウィザースケルトンの頭） -->
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -28,15 +33,12 @@
             padding: 20px 30px; position: sticky; top: 0; background: white; 
             z-index: 150; box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
         }
-        .site-title { font-size: 20px; font-weight: bold; margin: 0; }
-        .site-title a { text-decoration: none; color: #000; transition: 0.3s; }
-        /* ★ カーソルを合わせた時に赤色になる設定 (タイトル) ★ */
+        .site-title a { text-decoration: none; color: #000; font-weight: bold; font-size: 20px; transition: 0.3s; }
         .site-title a:hover { color: #ff0000; }
 
         /* メニューアニメーション (0.5s) */
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000; transition: 0.3s; }
-        /* ★ カーソルを合わせた時に三本線が赤色になる設定 ★ */
         .menu-btn:hover .line { background-color: #ff0000; }
 
         .overlay { 
@@ -48,70 +50,49 @@
         .overlay.show { display: flex; opacity: 1; }
 
         .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #fff; cursor: pointer; line-height: 1; transition: 0.3s; }
-        /* ★ カーソルを合わせた時に×ボタンが赤色になる設定 ★ */
         .close-btn:hover { color: #ff0000; }
 
         .menu-item { display: block; color: #fff; text-decoration: none; font-size: 26px; font-weight: bold; margin: 15px 0; text-align: center; transition: 0.3s; }
-        /* ★ カーソルを合わせた時にメニュー項目が赤色になる設定 ★ */
         .menu-item:hover { color: #ff0000; }
 
         /* おすすめ動画 */
-        .featured-video { width: 100%; background-color: #000; padding: 60px 0; display: flex; justify-content: center; }
+        .featured-video { width: 100%; background-color: #000; padding: 100px 0; display: flex; justify-content: center; }
         .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* セクション設定（間隔を広く） */
-        section { width: 100%; padding: 250px 0; display: flex; flex-direction: column; align-items: center; }
-        .section-header { width: 90%; max-width: 1200px; margin-bottom: 60px; }
-        .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
+        /* ★ セクション間隔 400px ★ */
+        section { width: 100%; padding: 400px 0; display: flex; flex-direction: column; align-items: center; }
+        .section-header { width: 90%; max-width: 1200px; margin-bottom: 80px; }
+        .section-title-large { font-size: clamp(40px, 10vw, 75px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
         
-        /* 背景色バリエーション */
+        /* セクションカラー設定 */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
+        .bg-yellow { background-color: #ffd700; color: #000; } /* イベント：黄色 */
+        .bg-blue { background-color: #1e4185; color: #fff; }   /* ニュース：青 */
         .bg-orange { background-color: #ff8c00; color: #fff; }
-        
-        /* ★ イベント：黄色（文字は黒） ★ */
-        .bg-yellow { background-color: #ffd700; color: #000; }
-        
-        /* ★ ニュース：青（文字は白） ★ */
-        .bg-blue { background-color: #1e4185; color: #fff; }
 
         .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; transition: 0.3s; color: inherit; text-decoration: none; }
         
-        /* カード内の文字色が背景色によって変わるため、ホバー時の設定を調整 */
-        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); }
-        
-        /* ★ 黄色背景のカードにホバーした時の文字色設定 ★ */
-        .bg-yellow .card:hover { color: #ff0000; }
-        
-        /* ★ それ以外の背景のカードにホバーした時の文字色設定 ★ */
-        .bg-red .card:hover, .bg-purple .card:hover, .bg-green .card:hover, .bg-orange .card:hover, .bg-blue .card:hover { color: #ff0000; }
+        /* ★ ホバーで赤色になる設定 ★ */
+        .card:hover { transform: translateY(-15px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
 
         /* フッター */
-        footer { background-color: #000; color: #fff; padding: 100px 20px; }
+        footer { background-color: #000; color: #fff; padding: 120px 20px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; }
-        .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 20px; border-left: 3px solid #fff; padding-left: 10px; }
-        .footer-column ul { list-style: none; padding: 0; margin: 0; }
-        .footer-column ul li { margin-bottom: 12px; }
-        .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; cursor: pointer; transition: 0.3s; }
-        /* ★ カーソルを合わせた時にフッターリンクが赤色になる設定 ★ */
+        .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 25px; border-left: 3px solid #fff; padding-left: 10px; }
+        .footer-column ul { list-style: none; padding: 0; }
+        .footer-column ul li { margin-bottom: 15px; }
+        .footer-column ul li a { color: #fff; text-decoration: none; transition: 0.3s; }
         .footer-column ul li a:hover { color: #ff0000; }
 
-        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .footer-bottom { max-width: 1200px; margin: 80px auto 0; padding-top: 40px; border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .footer-logo { font-size: 32px; font-weight: 900; }
-        .footer-sns { display: flex; gap: 25px; font-size: 26px; }
-        .footer-sns a { color: #fff; text-decoration: none; transition: 0.3s; }
-        /* ★ カーソルを合わせた時にSNSアイコンが赤色になる設定 ★ */
-        .footer-sns a:hover { color: #ff0000; transform: scale(1.1); }
-
-        /* 質問コーナー */
-        #qaModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:1000; }
-        #qaModalContent { background:#1a1a1a; color:#fff; padding:40px; border-radius:20px; width:80%; max-width:600px; position:relative; }
-        .modal-close { position:absolute; top:20px; right:20px; font-size:30px; cursor:pointer; transition: 0.3s; }
-        /* ★ カーソルを合わせた時に質問コーナーの閉じるボタンが赤色になる設定 ★ */
-        .modal-close:hover { color: #ff0000; }
+        .footer-sns { display: flex; gap: 25px; font-size: 28px; }
+        .footer-sns a { color: #fff; transition: 0.3s; }
+        .footer-sns a:hover { color: #ff0000; transform: scale(1.2); }
     </style>
 </head>
 <body>
@@ -123,6 +104,7 @@
         </div>
     </header>
 
+    <!-- 全画面メニュー -->
     <div class="overlay" id="menuOverlay">
         <div class="close-btn" onclick="toggleMenu()">&times;</div>
         <nav>
@@ -146,33 +128,35 @@
             <div class="section-header">
                 <h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2>
             </div>
-            <div class="content-area"><a href="#" class="card">LIVE 1</a><a href="#" class="card">LIVE 2</a></div>
+            <div class="content-area"><a href="#" class="card">LIVE配信を観る</a><a href="#" class="card">アーカイブ一覧</a></div>
         </section>
 
         <section id="video" class="bg-purple">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2>
+                <h2><span style="display:block; font-size:16px;">おすすめ動画</span><span class="section-title-large">VIDEO</span></h2>
             </div>
-            <div class="content-area"><a href="#" class="card">人気動画</a><a href="#" class="card">最新動画</a></div>
+            <div class="content-area"><a href="#" class="card">最新の動画</a><a href="#" class="card">人気の動画</a></div>
         </section>
 
         <section id="download" class="bg-green">
             <div class="section-header">
                 <h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
             </div>
-            <div class="content-area"><a href="#" class="card">アドオン配布</a><a href="#" class="card">ワールド配布</a></div>
+            <div class="content-area"><a href="#" class="card">アドオン配布</a><a href="#" class="card">スキン/マップ</a></div>
         </section>
 
+        <!-- イベント（黄色） -->
         <section id="event" class="bg-yellow">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px; color:#000;">イベント</span><span class="section-title-large" style="color:#000;">EVENT</span></h2>
+                <h2><span style="display:block; font-size:16px;">イベント情報</span><span class="section-title-large">EVENT</span></h2>
             </div>
-            <div class="content-area"><a href="#" class="card">参加型イベント</a><a href="#" class="card">配布開始記念</a></div>
+            <div class="content-area"><a href="#" class="card">開催中の企画</a><a href="#" class="card">過去のイベント</a></div>
         </section>
 
+        <!-- ニュース（青）：イベントの下に移動 -->
         <section id="news" class="bg-blue">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2>
+                <h2><span style="display:block; font-size:16px;">最新ニュース</span><span class="section-title-large">NEWS</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">重要なお知らせ</a><a href="#" class="card">アップデート情報</a></div>
         </section>
@@ -181,7 +165,7 @@
             <div class="section-header">
                 <h2><span style="display:block; font-size:16px;">スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
             </div>
-            <div class="content-area"><a href="#" class="card">今週の予定</a></div>
+            <div class="content-area"><a href="#" class="card">今週の予定表</a></div>
         </section>
     </main>
 
@@ -206,8 +190,8 @@
             <div class="footer-column">
                 <h4>SUPPORT</h4>
                 <ul>
-                    <li><a onclick="openQA()">QA / 質問コーナー</a></li>
-                    <li><a href="#">GUIDELINE / ガイドライン</a></li>
+                    <li><a href="#">GUIDELINE</a></li>
+                    <li><a href="https://x.com/Wirza604" target="_blank">CONTACT</a></li>
                 </ul>
             </div>
         </div>
@@ -223,14 +207,6 @@
         </div>
     </footer>
 
-    <div id="qaModal">
-        <div id="qaModalContent">
-            <span class="modal-close" onclick="closeQA()">&times;</span>
-            <h2>質問コーナー</h2>
-            <p>準備中...</p>
-        </div>
-    </div>
-
     <script>
         function toggleMenu() {
             const overlay = document.getElementById('menuOverlay');
@@ -244,8 +220,6 @@
                 document.body.style.overflow = 'auto';
             }
         }
-        function openQA() { document.getElementById('qaModal').style.display = 'flex'; }
-        function closeQA() { document.getElementById('qaModal').style.display = 'none'; }
     </script>
 </body>
 </html>
