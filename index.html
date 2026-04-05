@@ -14,14 +14,12 @@
     <meta property="og:description" content="マイクラ実況者「ウィルザ」の最新情報をチェック！アドオン配布中！">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://wirza604.github.io/wirza/">
-    <meta property="og:image" content="https://wirza604.github.io/wirza/favicon.png"> <!-- アイコンをシェア画像に指定 -->
+    <meta property="og:image" content="https://wirza604.github.io/wirza/favicon.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@Wirza604">
 
-    <!-- アイコン設定（ウィザースケルトンの頭） -->
+    <!-- アイコン設定 -->
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -36,7 +34,7 @@
         .site-title a { text-decoration: none; color: #000; font-weight: bold; font-size: 20px; transition: 0.3s; }
         .site-title a:hover { color: #ff0000; }
 
-        /* メニューアニメーション (0.5s) */
+        /* メニューアニメーション */
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000; transition: 0.3s; }
         .menu-btn:hover .line { background-color: #ff0000; }
@@ -60,8 +58,16 @@
         .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* ★ セクション間隔 400px ★ */
-        section { width: 100%; padding: 400px 0; display: flex; flex-direction: column; align-items: center; }
+        /* ★ セクション設定：間隔を白くするために margin を使用 ★ */
+        section { 
+            width: 100%; 
+            padding: 150px 0; /* セクション内の広さ */
+            margin-bottom: 400px; /* ★ セクション同士の間の白い空間 ★ */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
         .section-header { width: 90%; max-width: 1200px; margin-bottom: 80px; }
         .section-title-large { font-size: clamp(40px, 10vw, 75px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
         
@@ -69,18 +75,20 @@
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
-        .bg-yellow { background-color: #ffd700; color: #000; } /* イベント：黄色 */
-        .bg-blue { background-color: #1e4185; color: #fff; }   /* ニュース：青 */
+        .bg-yellow { background-color: #ffd700; color: #000; }
+        .bg-blue { background-color: #1e4185; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
         .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; transition: 0.3s; color: inherit; text-decoration: none; }
         
-        /* ★ ホバーで赤色になる設定 ★ */
+        /* ホバーで赤色 */
         .card:hover { transform: translateY(-15px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
 
-        /* フッター */
-        footer { background-color: #000; color: #fff; padding: 120px 20px; }
+        /* フッター（最後のセクションの余白を消すため） */
+        #schedule { margin-bottom: 0; }
+
+        footer { background-color: #000; color: #fff; padding: 120px 20px; margin-top: 400px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; }
         .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 25px; border-left: 3px solid #fff; padding-left: 10px; }
         .footer-column ul { list-style: none; padding: 0; }
@@ -104,7 +112,6 @@
         </div>
     </header>
 
-    <!-- 全画面メニュー -->
     <div class="overlay" id="menuOverlay">
         <div class="close-btn" onclick="toggleMenu()">&times;</div>
         <nav>
@@ -145,7 +152,6 @@
             <div class="content-area"><a href="#" class="card">アドオン配布</a><a href="#" class="card">スキン/マップ</a></div>
         </section>
 
-        <!-- イベント（黄色） -->
         <section id="event" class="bg-yellow">
             <div class="section-header">
                 <h2><span style="display:block; font-size:16px;">イベント情報</span><span class="section-title-large">EVENT</span></h2>
@@ -153,7 +159,6 @@
             <div class="content-area"><a href="#" class="card">開催中の企画</a><a href="#" class="card">過去のイベント</a></div>
         </section>
 
-        <!-- ニュース（青）：イベントの下に移動 -->
         <section id="news" class="bg-blue">
             <div class="section-header">
                 <h2><span style="display:block; font-size:16px;">最新ニュース</span><span class="section-title-large">NEWS</span></h2>
@@ -190,7 +195,6 @@
             <div class="footer-column">
                 <h4>SUPPORT</h4>
                 <ul>
-                    <li><a href="#">GUIDELINE</a></li>
                     <li><a href="https://x.com/Wirza604" target="_blank">CONTACT</a></li>
                 </ul>
             </div>
