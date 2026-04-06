@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ウィルザ公式サイト | WIRZA OFFICIAL SITE</title>
     <meta name="description" content="マイクラ実況者「ウィルザ」の公式サイト。最新のアドオン配布、ライブスケジュール、イベント情報をチェック！">
     <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, アドオン, 配布パック, YouTube">
@@ -17,7 +16,9 @@
     <meta name="twitter:site" content="@Wirza604">
 
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="apple-touch-icon" href="favicon.png"> 
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         html { scroll-behavior: smooth; }
@@ -31,7 +32,6 @@
         .site-title a { text-decoration: none; color: #000; font-weight: bold; font-size: 20px; transition: 0.3s; }
         .site-title a:hover { color: #ff0000; }
 
-        /* メニューアニメーション */
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000; transition: 0.3s; }
         .menu-btn:hover .line { background-color: #ff0000; }
@@ -50,17 +50,15 @@
         .menu-item { display: block; color: #fff; text-decoration: none; font-size: 26px; font-weight: bold; margin: 15px 0; text-align: center; transition: 0.3s; }
         .menu-item:hover { color: #ff0000; }
 
-        /* おすすめ動画 */
         .featured-video { width: 100%; background-color: #000; padding: 60px 0; display: flex; justify-content: center; }
         .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* セクション設定（間隔を広く） */
-        section { width: 100%; padding: 250px 0; display: flex; flex-direction: column; align-items: center; }
+        /* ★ 項目ごとの間隔を1cm(約40px)に設定 ★ */
+        section { width: 100%; padding: 100px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; /* ここを40pxに詰めました */ }
         .section-header { width: 90%; max-width: 1200px; margin-bottom: 60px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
         
-        /* セクションカラー */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
@@ -72,15 +70,15 @@
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; transition: 0.3s; color: inherit; text-decoration: none; }
         .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
 
-        /* フッター */
-        footer { background-color: #000; color: #fff; padding: 100px 20px; }
+        /* 最後のセクションの間隔調整 */
+        #schedule { margin-bottom: 0; }
+
+        footer { background-color: #000; color: #fff; padding: 100px 20px; margin-top: 40px; /* ここも40px */ }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; }
         .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 20px; border-left: 3px solid #fff; padding-left: 10px; }
         .footer-column ul { list-style: none; padding: 0; }
         .footer-column ul li { margin-bottom: 12px; }
         .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
-        
-        /* ★ フッターのSNSリンクにアイコンを追加 ★ */
         .footer-column ul li a i { font-size: 18px; width: 20px; text-align: center; }
         .footer-column ul li a:hover { color: #ff0000; }
 
@@ -142,7 +140,7 @@
 
         <section id="event" class="bg-yellow">
             <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">イベント</span><span class="section-title-large">EVENT</span></h2>
+                <h2><span style="display:block; font-size:16px; color:#000;">イベント</span><span class="section-title-large" style="color:#000;">EVENT</span></h2>
             </div>
             <div class="content-area"><a href="#" class="card">参加型イベント</a><a href="#" class="card">配布開始記念</a></div>
         </section>
@@ -167,9 +165,9 @@
             <div class="footer-column">
                 <h4>CONTENTS</h4>
                 <ul>
-                    <li><a href="#news">NEWS</a></li>
                     <li><a href="#live">LIVE</a></li>
                     <li><a href="#video">VIDEO</a></li>
+                    <li><a href="#news">NEWS</a></li>
                 </ul>
             </div>
             <div class="footer-column">
