@@ -6,17 +6,11 @@
 
     <title>ウィルザ公式サイト | WIRZA OFFICIAL SITE</title>
     <meta name="description" content="マイクラ実況者「ウィルザ」の公式サイト。最新のアドオン配布、ライブスケジュール、イベント情報をチェック！">
-    <meta name="keywords" content="ウィルザ, Wirza, マイクラ, 実況, アドオン, 配布パック, YouTube">
     <meta property="og:title" content="ウィルザ公式サイト | WIRZA OFFICIAL SITE">
-    <meta property="og:description" content="マイクラ実況者「ウィルザ」の最新情報をチェック！">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wirza604.github.io/wirza/">
     <meta property="og:image" content="https://wirza604.github.io/wirza/favicon.png"> 
-    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png"> 
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -42,25 +36,22 @@
             z-index: 500; opacity: 0; transition: opacity 0.5s ease; 
         }
         .overlay.show { display: flex; opacity: 1; }
-
         .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #fff; cursor: pointer; line-height: 1; transition: 0.3s; }
         .close-btn:hover { color: #ff0000; }
-
         .menu-item { display: block; color: #fff; text-decoration: none; font-size: 26px; font-weight: bold; margin: 15px 0; text-align: center; transition: 0.3s; }
         .menu-item:hover { color: #ff0000; }
 
-        /* ★ 動画エリア：クリックでYouTubeへ飛ぶように設定 ★ */
+        /* 動画エリア */
         .featured-video { width: 100%; background-color: #000; padding: 60px 0; display: flex; justify-content: center; cursor: pointer; text-decoration: none; transition: 0.3s; }
         .featured-video:hover { opacity: 0.8; }
-        .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; pointer-events: none; /* iframeへの干渉を防ぐ */ }
+        .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; pointer-events: none; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* ★ 項目ごとの間隔を1cm(40px)に設定 ★ */
+        /* セクション間隔 1cm (40px) */
         section { width: 100%; padding: 100px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
         .section-header { width: 90%; max-width: 1200px; margin-bottom: 60px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
         
-        /* セクションカラー */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
@@ -68,12 +59,17 @@
         .bg-yellow { background-color: #ffd700; color: #000; }
         .bg-blue { background-color: #1e4185; color: #fff; }
 
+        /* 規約セクション用：白背景に黒文字 */
+        .bg-white { background-color: #ffffff; color: #000; border-top: 1px solid #eee; }
+        .legal-text { max-width: 800px; width: 90%; font-size: 14px; line-height: 1.8; }
+
         .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; transition: 0.3s; color: inherit; text-decoration: none; }
         .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
 
         #schedule { margin-bottom: 0; }
 
+        /* フッター */
         footer { background-color: #000; color: #fff; padding: 100px 20px; margin-top: 40px; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; }
         .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 20px; border-left: 3px solid #fff; padding-left: 10px; }
@@ -119,45 +115,43 @@
         </a>
 
         <section id="live" class="bg-red">
-            <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2>
-            </div>
+            <div class="section-header"><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
             <div class="content-area"><a href="#" class="card">LIVE 1</a><a href="#" class="card">LIVE 2</a></div>
         </section>
 
         <section id="video" class="bg-purple">
-            <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2>
-            </div>
+            <div class="section-header"><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
             <div class="content-area"><a href="#" class="card">人気動画</a><a href="#" class="card">最新動画</a></div>
         </section>
 
         <section id="download" class="bg-green">
-            <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2>
-            </div>
+            <div class="section-header"><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
             <div class="content-area"><a href="#" class="card">アドオン配布</a><a href="#" class="card">ワールド配布</a></div>
         </section>
 
         <section id="event" class="bg-yellow">
-            <div class="section-header">
-                <h2><span style="display:block; font-size:16px; color:#000;">イベント</span><span class="section-title-large" style="color:#000;">EVENT</span></h2>
-            </div>
+            <div class="section-header"><h2><span style="display:block; font-size:16px; color:#000;">イベント</span><span class="section-title-large" style="color:#000;">EVENT</span></h2></div>
             <div class="content-area"><a href="#" class="card">参加型イベント</a><a href="#" class="card">配布開始記念</a></div>
         </section>
 
         <section id="news" class="bg-blue">
-            <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2>
-            </div>
+            <div class="section-header"><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
             <div class="content-area"><a href="#" class="card">重要なお知らせ</a><a href="#" class="card">アップデート情報</a></div>
         </section>
 
         <section id="schedule" class="bg-orange">
-            <div class="section-header">
-                <h2><span style="display:block; font-size:16px;">スケジュール</span><span class="section-title-large">SCHEDULE</span></h2>
-            </div>
+            <div class="section-header"><h2><span style="display:block; font-size:16px;">スケジュール</span><span class="section-title-large">SCHEDULE</span></h2></div>
             <div class="content-area"><a href="#" class="card">今週の予定</a></div>
+        </section>
+
+        <section id="terms" class="bg-white">
+            <div class="section-header"><h2><span style="display:block; font-size:16px;">法的情報</span><span class="section-title-large">TERMS</span></h2></div>
+            <div class="legal-text">
+                <h3>利用規約</h3>
+                <p>当サイトで配布しているアドオンやマップは、個人利用の範囲で自由にお楽しみいただけます。二次配布や無断転載は禁止です。動画配信等で使用する場合は、チャンネルへのリンクを記載していただけると嬉しいです！</p>
+                <h3>プライバシーポリシー</h3>
+                <p>当サイトでは、アクセス解析のためにクッキーを使用することがあります。取得したデータはサイトの改善にのみ使用し、個人の特定や第三者への提供は行いません。</p>
+            </div>
         </section>
     </main>
 
@@ -172,20 +166,20 @@
                 </ul>
             </div>
             <div class="footer-column">
-                <h4>OTHERS</h4>
-                <ul>
-                    <li><a href="#download">DOWNLOAD</a></li>
-                    <li><a href="#event">EVENT</a></li>
-                    <li><a href="#schedule">SCHEDULE</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
                 <h4>SNS</h4>
                 <ul>
                     <li><a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
                     <li><a href="https://x.com/Wirza604" target="_blank"><i class="fab fa-x-twitter"></i> X (Twitter)</a></li>
                     <li><a href="https://www.instagram.com/wirza604/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
                     <li><a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>LEGAL</h4>
+                <ul>
+                    <li><a href="#terms">利用規約</a></li>
+                    <li><a href="#terms">プライバシーポリシー</a></li>
+                    <li><a href="https://x.com/Wirza604" target="_blank">お問い合わせ</a></li>
                 </ul>
             </div>
         </div>
