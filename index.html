@@ -10,147 +10,128 @@
     <meta property="og:image" content="https://wirza604.github.io/wirza/favicon.png"> 
 
     <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         html { scroll-behavior: smooth; }
-        body { background-color: #ffffff; color: #000000; font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; margin: 0; overflow-x: hidden; }
+        body { background-color: #ffffff; color: #000000; font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; overflow-x: hidden; }
         
+        /* ヘッダー */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 20px 30px; position: sticky; top: 0; background: white; 
+            padding: 15px 30px; position: sticky; top: 0; background: white; 
             z-index: 150; box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
         }
-        .site-title a { text-decoration: none; color: #000; font-weight: bold; font-size: 20px; transition: 0.3s; }
-        .site-title a:hover { color: #ff0000; }
+
+        /* 画像に基づいたブランドチップ */
+        .brand-chip {
+            display: flex; align-items: center; gap: 8px;
+            background-color: #374151; color: #ffffff;
+            padding: 6px 12px; border-radius: 20px;
+            font-size: 14px; font-weight: bold; text-decoration: none;
+            transition: 0.3s;
+        }
+        .brand-chip:hover { background-color: #4b5563; }
+        .brand-chip i.fa-globe { font-size: 16px; opacity: 0.8; }
+        .brand-chip .close-icon { font-size: 12px; margin-left: 4px; opacity: 0.6; cursor: pointer; }
 
         .menu-btn { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; z-index: 200; }
         .menu-btn .line { width: 100%; height: 3px; background-color: #000; transition: 0.3s; }
-        .menu-btn:hover .line { background-color: #ff0000; }
 
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: rgba(0, 0, 0, 0.98); 
-            display: none; justify-content: center; align-items: center; 
-            z-index: 500; opacity: 0; transition: opacity 0.5s ease; 
+        /* スクロールアニメーション設定 */
+        .reveal {
+            opacity: 0;
+            transform: translateX(100px); /* 右側から */
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .overlay.show { display: flex; opacity: 1; }
-        .close-btn { position: absolute; top: 30px; right: 30px; font-size: 60px; color: #fff; cursor: pointer; line-height: 1; transition: 0.3s; }
-        .close-btn:hover { color: #ff0000; }
-        .menu-item { display: block; color: #fff; text-decoration: none; font-size: 26px; font-weight: bold; margin: 15px 0; text-align: center; transition: 0.3s; }
-        .menu-item:hover { color: #ff0000; }
+        .reveal.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
-        /* 動画エリア */
-        .featured-video { width: 100%; background-color: #000; padding: 60px 0; display: flex; justify-content: center; cursor: pointer; text-decoration: none; transition: 0.3s; }
-        .featured-video:hover { opacity: 0.8; }
-        .video-container { width: 90%; max-width: 1000px; aspect-ratio: 16 / 9; background: #333; border: 4px solid #fff; pointer-events: none; }
-        iframe { width: 100%; height: 100%; border: none; }
+        /* セクション設定（左に1cm = 約38pxの間隔を保持） */
+        section { 
+            width: 100%; padding: 100px 0; 
+            display: flex; flex-direction: column; 
+            align-items: flex-start; /* 左揃え */
+            padding-left: 1cm; /* 左に1cmの間隔 */
+            margin-bottom: 40px;
+            box-sizing: border-box;
+        }
 
-        /* セクション間隔 1cm (40px) */
-        section { width: 100%; padding: 100px 0; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
         .section-header { width: 90%; max-width: 1200px; margin-bottom: 60px; }
         .section-title-large { font-size: clamp(40px, 10vw, 65px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
         
+        /* 背景色 */
         .bg-red { background-color: #ff0000; color: #fff; }
         .bg-purple { background-color: #800080; color: #fff; }
         .bg-green { background-color: #2e8b57; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
         .bg-yellow { background-color: #ffd700; color: #000; }
         .bg-blue { background-color: #1e4185; color: #fff; }
-
-        /* 規約セクション用：白背景に黒文字 */
         .bg-white { background-color: #ffffff; color: #000; border-top: 1px solid #eee; }
-        .legal-text { max-width: 800px; width: 90%; font-size: 14px; line-height: 1.8; }
 
         .content-area { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; transition: 0.3s; color: inherit; text-decoration: none; }
-        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.25); color: #ff0000 !important; border-color: #ff0000; }
+        .card:hover { transform: translateY(-10px); color: #ff0000 !important; border-color: #ff0000; }
 
-        #schedule { margin-bottom: 0; }
+        /* オーバーレイメニュー */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 500; }
+        .overlay.show { display: flex; }
+        .menu-item { color: #fff; text-decoration: none; font-size: 24px; margin: 15px; display: block; text-align: center; }
 
         /* フッター */
-        footer { background-color: #000; color: #fff; padding: 100px 20px; margin-top: 40px; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; }
-        .footer-column h4 { font-size: 16px; color: #888; margin-bottom: 20px; border-left: 3px solid #fff; padding-left: 10px; }
+        footer { background-color: #000; color: #fff; padding: 100px 1cm; margin-top: 40px; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
         .footer-column ul { list-style: none; padding: 0; }
-        .footer-column ul li { margin-bottom: 12px; }
-        .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; transition: 0.3s; display: flex; align-items: center; gap: 10px; }
-        .footer-column ul li a i { font-size: 18px; width: 20px; text-align: center; }
-        .footer-column ul li a:hover { color: #ff0000; }
-
-        .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 40px; border-top: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
-        .footer-logo { font-size: 32px; font-weight: 900; }
-        .footer-bottom-sns { display: flex; gap: 25px; font-size: 26px; }
-        .footer-bottom-sns a { color: #fff; transition: 0.3s; }
-        .footer-bottom-sns a:hover { color: #ff0000; transform: scale(1.1); }
+        .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 class="site-title"><a href="#">ウィルザ公式サイト</a></h1>
+        <a href="#" class="brand-chip">
+            <i class="fa-solid fa-globe"></i>
+            <span>ウィルザ</span>
+            <i class="fa-solid fa-xmark close-icon"></i>
+        </a>
         <div class="menu-btn" onclick="toggleMenu()">
             <div class="line"></div><div class="line"></div><div class="line"></div>
         </div>
     </header>
 
     <div class="overlay" id="menuOverlay">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
         <nav>
             <a href="#live" class="menu-item" onclick="toggleMenu()">LIVE</a>
             <a href="#video" class="menu-item" onclick="toggleMenu()">VIDEO</a>
             <a href="#download" class="menu-item" onclick="toggleMenu()">DOWNLOAD</a>
-            <a href="#event" class="menu-item" onclick="toggleMenu()">EVENT</a>
-            <a href="#news" class="menu-item" onclick="toggleMenu()">NEWS</a>
-            <a href="#schedule" class="menu-item" onclick="toggleMenu()">SCHEDULE</a>
+            <a href="#terms" class="menu-item" onclick="toggleMenu()">TERMS</a>
         </nav>
     </div>
 
     <main>
-        <a href="https://www.youtube.com/channel/UCiNHIl4z-vZQzIDlnpjd5yw" target="_blank" class="featured-video">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=UUv0uU7G0nS85Y2aN4P0o4rA" title="Featured Video"></iframe>
-            </div>
-        </a>
-
-        <section id="live" class="bg-red">
+        <section id="live" class="bg-red reveal">
             <div class="section-header"><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
             <div class="content-area"><a href="#" class="card">LIVE 1</a><a href="#" class="card">LIVE 2</a></div>
         </section>
 
-        <section id="video" class="bg-purple">
+        <section id="video" class="bg-purple reveal">
             <div class="section-header"><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
             <div class="content-area"><a href="#" class="card">人気動画</a><a href="#" class="card">最新動画</a></div>
         </section>
 
-        <section id="download" class="bg-green">
+        <section id="download" class="bg-green reveal">
             <div class="section-header"><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
             <div class="content-area"><a href="#" class="card">アドオン配布</a><a href="#" class="card">ワールド配布</a></div>
         </section>
 
-        <section id="event" class="bg-yellow">
-            <div class="section-header"><h2><span style="display:block; font-size:16px; color:#000;">イベント</span><span class="section-title-large" style="color:#000;">EVENT</span></h2></div>
-            <div class="content-area"><a href="#" class="card">参加型イベント</a><a href="#" class="card">配布開始記念</a></div>
-        </section>
-
-        <section id="news" class="bg-blue">
-            <div class="section-header"><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
-            <div class="content-area"><a href="#" class="card">重要なお知らせ</a><a href="#" class="card">アップデート情報</a></div>
-        </section>
-
-        <section id="schedule" class="bg-orange">
-            <div class="section-header"><h2><span style="display:block; font-size:16px;">スケジュール</span><span class="section-title-large">SCHEDULE</span></h2></div>
-            <div class="content-area"><a href="#" class="card">今週の予定</a></div>
-        </section>
-
-        <section id="terms" class="bg-white">
+        <section id="terms" class="bg-white reveal">
             <div class="section-header"><h2><span style="display:block; font-size:16px;">法的情報</span><span class="section-title-large">TERMS</span></h2></div>
-            <div class="legal-text">
+            <div style="max-width: 800px; line-height: 1.8;">
                 <h3>利用規約</h3>
-                <p>当サイトで配布しているアドオンやマップは、個人利用の範囲で自由にお楽しみいただけます。二次配布や無断転載は禁止です。動画配信等で使用する場合は、チャンネルへのリンクを記載していただけると嬉しいです！</p>
+                <p>二次配布や無断転載は禁止です。動画配信での使用は大歓迎です！</p>
                 <h3>プライバシーポリシー</h3>
-                <p>当サイトでは、アクセス解析のためにクッキーを使用することがあります。取得したデータはサイトの改善にのみ使用し、個人の特定や第三者への提供は行いません。</p>
+                <p>当サイトではアクセス解析のためにCookieを使用することがあります。</p>
             </div>
         </section>
     </main>
@@ -158,20 +139,10 @@
     <footer>
         <div class="footer-container">
             <div class="footer-column">
-                <h4>CONTENTS</h4>
-                <ul>
-                    <li><a href="#live">LIVE</a></li>
-                    <li><a href="#video">VIDEO</a></li>
-                    <li><a href="#news">NEWS</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
                 <h4>SNS</h4>
                 <ul>
-                    <li><a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
-                    <li><a href="https://x.com/Wirza604" target="_blank"><i class="fab fa-x-twitter"></i> X (Twitter)</a></li>
-                    <li><a href="https://www.instagram.com/wirza604/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    <li><a href="#"><i class="fab fa-x-twitter"></i> X (Twitter)</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -179,35 +150,32 @@
                 <ul>
                     <li><a href="#terms">利用規約</a></li>
                     <li><a href="#terms">プライバシーポリシー</a></li>
-                    <li><a href="https://x.com/Wirza604" target="_blank">お問い合わせ</a></li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-logo">WIRZA</div>
-            <div class="footer-bottom-sns">
-                <a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://x.com/Wirza604" target="_blank"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.instagram.com/wirza604/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
     </footer>
 
     <script>
+        // メニュー開閉
         function toggleMenu() {
             const overlay = document.getElementById('menuOverlay');
-            if (!overlay.classList.contains('show')) {
-                overlay.style.display = 'flex';
-                setTimeout(() => overlay.classList.add('show'), 10);
-                document.body.style.overflow = 'hidden';
-            } else {
-                overlay.classList.remove('show');
-                setTimeout(() => overlay.style.display = 'none', 500);
-                document.body.style.overflow = 'auto';
+            overlay.classList.toggle('show');
+        }
+
+        // スクロールで右からふわっと出す処理
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
             }
         }
+        window.addEventListener("scroll", reveal);
+        reveal(); // 初期表示チェック
     </script>
 </body>
 </html>
