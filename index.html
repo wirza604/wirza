@@ -20,7 +20,7 @@
         }
         .brand-chip { display: flex; align-items: center; gap: 8px; background-color: #374151; color: #ffffff; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: bold; }
 
-        /* メニュー開閉速度 0.5s */
+        /* メニュー開閉 0.5s */
         .menu-btn { width: 30px; height: 22px; position: relative; cursor: pointer; z-index: 1100; }
         .menu-btn span { display: block; position: absolute; width: 100%; height: 3px; background: #000; border-radius: 3px; transition: 0.5s; }
         .menu-btn span:nth-child(1) { top: 0; }
@@ -37,21 +37,24 @@
             opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
         }
         .nav-overlay.open { opacity: 1; visibility: visible; }
-        .nav-link { font-size: 30px; font-weight: 900; color: #000; text-decoration: none; margin: 15px; }
+        .nav-link { font-size: 30px; font-weight: 900; color: #000; text-decoration: none; margin: 15px; transition: 0.3s; }
+        .nav-link:hover { color: #ff0000; }
 
         /* --- コンテンツ --- */
         .hero-video { width: 100%; height: 65vh; background: #000; display: flex; justify-content: center; align-items: center; margin-bottom: 2cm; }
         .video-container { width: 90%; max-width: 1100px; aspect-ratio: 16/9; }
 
-        /* スライド設定 */
-        .reveal { opacity: 0; transform: translateX(100vw); transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s; }
+        /* 交互スライドの設定 */
+        .reveal { opacity: 0; transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s; }
+        .reveal-right { transform: translateX(100vw); }
+        .reveal-left { transform: translateX(-100vw); }
         .reveal.active { opacity: 1; transform: translateX(0); }
 
         /* セクション: 左に1cmの空白 */
         section { 
             width: calc(100% - 1cm); 
             margin-left: 1cm; 
-            margin-bottom: 1.5cm; 
+            margin-bottom: 2cm; 
             padding: 1.5cm 1cm; 
             display: flex; flex-direction: column; align-items: flex-start; 
             box-sizing: border-box;
@@ -61,53 +64,75 @@
 
         .section-header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 30px; }
         .section-title-large { font-size: clamp(40px, 10vw, 60px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
-        .more-link { font-size: 14px; font-weight: bold; color: inherit; text-decoration: none; opacity: 0.7; padding-bottom: 8px; }
+        .more-link { font-size: 14px; font-weight: bold; color: inherit; text-decoration: none; opacity: 0.7; padding-bottom: 8px; cursor: pointer; transition: 0.3s; }
+        .more-link:hover { opacity: 1; text-decoration: underline; }
 
-        /* 背景色の指定 */
+        /* 背景色 */
         .bg-red { background-color: #ff0000; color: #fff; }
-        .bg-purple { background-color: #6a5acd; color: #fff; } /* VIDEO */
-        .bg-green { background-color: #2e8b57; color: #fff; } /* DOWNLOAD */
-        .bg-pink { background-color: #ff69b4; color: #fff; } /* EVENT */
-        .bg-blue { background-color: #1e4185; color: #fff; } /* NEWS */
-        .bg-orange { background-color: #ff8c00; color: #fff; } /* SCHEDULE */
+        .bg-purple { background-color: #6a5acd; color: #fff; }
+        .bg-green { background-color: #2e8b57; color: #fff; }
+        .bg-pink { background-color: #ff69b4; color: #fff; }
+        .bg-blue { background-color: #1e4185; color: #fff; }
+        .bg-orange { background-color: #ff8c00; color: #fff; }
 
         .content-area { width: 90%; max-width: 1100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; }
 
         /* --- フッター --- */
-        footer { background-color: #000; color: #fff; padding: 60px 1cm; border-top: 1px solid #222; }
+        footer { background-color: #000; color: #fff; padding: 60px 1cm; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
         .footer-column h4 { font-size: 14px; color: #888; margin-bottom: 20px; }
         .footer-column ul { list-style: none; padding: 0; }
         .footer-column ul li { margin-bottom: 12px; }
         .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; cursor: pointer; transition: 0.3s; }
         .footer-column ul li a:hover { color: #ff0000; }
-        
         .sns-icons { display: flex; gap: 25px; }
         .sns-icons a { color: #fff; font-size: 24px; transition: 0.3s; }
         .sns-icons a:hover { color: #ff0000; transform: translateY(-3px); }
 
         /* --- モーダル共通 --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 3000;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 3000; }
         .modal-overlay.active { display: flex; }
         
-        /* YouTube風モーダル */
-        .yt-modal-content { background: #fff; color: #000; width: 95%; max-width: 600px; height: 80vh; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
+        /* YouTube風 質問・コメントモーダル */
+        .yt-modal-content { background: #fff; color: #000; width: 95%; max-width: 600px; height: 85vh; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
         .yt-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .yt-comments-area { flex: 1; overflow-y: auto; padding: 20px; }
-        .yt-input-section { display: flex; gap: 15px; margin-bottom: 30px; }
+        
+        /* 他の人のコメントリスト */
+        .yt-comments-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .yt-comment { display: flex; gap: 15px; }
+        .yt-comment-body { display: flex; flex-direction: column; }
+        .yt-comment-header { font-size: 13px; margin-bottom: 5px; }
+        .yt-comment-name { font-weight: bold; margin-right: 8px; }
+        .yt-comment-time { color: #606060; }
+        .yt-comment-text { font-size: 14px; line-height: 1.5; }
+
+        /* 入力フォーム */
+        .yt-input-section { display: flex; gap: 15px; }
         .yt-avatar { width: 40px; height: 40px; background: #ccc; border-radius: 50%; flex-shrink: 0; display: flex; justify-content: center; align-items: center; color: #fff; }
-        .yt-input { width: 100%; border: none; border-bottom: 1px solid #e5e5e5; padding: 5px 0; outline: none; }
+        .yt-input { width: 100%; border: none; border-bottom: 1px solid #e5e5e5; padding: 5px 0; outline: none; font-size: 14px; }
+        .yt-input:focus { border-bottom: 2px solid #000; }
         .yt-btns { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
         .yt-btn { padding: 8px 16px; border-radius: 18px; font-size: 14px; font-weight: bold; cursor: pointer; border: none; }
         .yt-btn-submit { background: #065fd4; color: #fff; }
 
-        /* 利用規約用モーダル */
-        .legal-modal-content { background: #fff; color: #000; width: 90%; max-width: 500px; padding: 30px; border-radius: 15px; position: relative; max-height: 80vh; overflow-y: auto; }
+        /* 利用規約モーダル */
+        .legal-modal-content { background: #fff; color: #000; width: 90%; max-width: 500px; padding: 30px; border-radius: 15px; position: relative; }
         .legal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #888; }
+
+        /* --- さらに表示 フルスクリーンモーダル --- */
+        .fs-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; color: #000; z-index: 4000;
+            display: flex; flex-direction: column;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
+        }
+        .fs-modal-overlay.active { opacity: 1; visibility: visible; }
+        .fs-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #eee; }
+        .fs-title { font-size: 28px; font-weight: 900; font-style: italic; margin: 0; }
+        .fs-close { font-size: 36px; cursor: pointer; color: #333; line-height: 1; }
+        .fs-body { flex: 1; padding: 40px; overflow-y: auto; font-size: 16px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -129,33 +154,33 @@
     <main>
         <div class="hero-video"><div class="video-container"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/動画ID" frameborder="0" allowfullscreen></iframe></div></div>
 
-        <section id="live" class="bg-red reveal">
-            <div class="section-header"><a href="#" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
+        <section id="live" class="bg-red reveal reveal-right">
+            <div class="section-header"><a onclick="openFullScreen('LIVE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
             <div class="content-area"><a href="#" class="card">NOW ON AIR</a></div>
         </section>
 
-        <section id="video" class="bg-purple reveal">
-            <div class="section-header"><a href="#" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
+        <section id="video" class="bg-purple reveal reveal-left">
+            <div class="section-header"><a onclick="openFullScreen('VIDEO')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
             <div class="content-area"><a href="#" class="card">LATEST VIDEO</a></div>
         </section>
 
-        <section id="download" class="bg-green reveal">
-            <div class="section-header"><a href="#" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
+        <section id="download" class="bg-green reveal reveal-right">
+            <div class="section-header"><a onclick="openFullScreen('DOWNLOAD')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
             <div class="content-area"><a href="#" class="card">ADD-ON PACK</a></div>
         </section>
 
-        <section id="event" class="bg-pink reveal">
-            <div class="section-header"><a href="#" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">イベント</span><span class="section-title-large">EVENT</span></h2></div>
+        <section id="event" class="bg-pink reveal reveal-left">
+            <div class="section-header"><a onclick="openFullScreen('EVENT')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">イベント</span><span class="section-title-large">EVENT</span></h2></div>
             <div class="content-area"><a href="#" class="card">SPECIAL INFO</a></div>
         </section>
 
-        <section id="news" class="bg-blue reveal">
-            <div class="section-header"><a href="#" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
+        <section id="news" class="bg-blue reveal reveal-right">
+            <div class="section-header"><a onclick="openFullScreen('NEWS')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
             <div class="content-area"><a href="#" class="card">UPDATE INFO</a></div>
         </section>
 
-        <section id="schedule" class="bg-orange reveal">
-            <div class="section-header"><a href="#" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">予定表</span><span class="section-title-large">SCHEDULE</span></h2></div>
+        <section id="schedule" class="bg-orange reveal reveal-left">
+            <div class="section-header"><a onclick="openFullScreen('SCHEDULE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">予定表</span><span class="section-title-large">SCHEDULE</span></h2></div>
             <div class="content-area"><a href="#" class="card">STREAMING CALENDAR</a></div>
         </section>
     </main>
@@ -187,43 +212,72 @@
                 <h4>LEGAL / OTHER</h4>
                 <ul>
                     <li><a onclick="openYtModal()" style="font-weight:bold; opacity:0.8;">質問フォーム</a></li>
-                    <li><a onclick="openLegal('利用規約', 'ここに利用規約の文章が入ります。二次配布禁止など。')">利用規約</a></li>
-                    <li><a onclick="openLegal('プライバシーポリシー', 'ここにプライバシーポリシーの文章が入ります。')">プライバシーポリシー</a></li>
+                    <li><a onclick="openLegal('利用規約', '二次配布禁止などの規約がここに入ります。')">利用規約</a></li>
+                    <li><a onclick="openLegal('プライバシーポリシー', '個人情報の取り扱いについて記載します。')">プライバシーポリシー</a></li>
                 </ul>
             </div>
         </div>
         <p style="font-size: 10px; opacity: 0.3; text-align: center;">&copy; 2026 WIRZA OFFICIAL</p>
     </footer>
 
-    <!-- YouTube風 質問モーダル -->
+    <!-- YouTube風 コメントモーダル -->
     <div class="modal-overlay" id="ytModal" onclick="closeYtModal(event)">
         <div class="yt-modal-content">
-            <div class="yt-header"><h3>コメント</h3><span style="cursor:pointer; font-size:24px;" onclick="closeYtModal(event)">&times;</span></div>
+            <div class="yt-header"><h3>質問・コメント</h3><span style="cursor:pointer; font-size:24px;" onclick="closeYtModal(event)">&times;</span></div>
             <div class="yt-comments-area">
-                <div class="yt-input-section">
-                    <div class="yt-avatar"><i class="fa-solid fa-user"></i></div>
-                    <div style="flex:1">
-                        <input type="text" class="yt-input" placeholder="公開コメントを入力...">
-                        <div class="yt-btns">
-                            <button class="yt-btn" onclick="closeYtModal(event)">キャンセル</button>
-                            <button class="yt-btn yt-btn-submit" onclick="alert('送信しました！')">コメント</button>
+                
+                <!-- 他の人のコメント表示エリア -->
+                <div class="yt-comments-list" id="commentsList">
+                    <div class="yt-comment">
+                        <div class="yt-avatar" style="background: #e91e63;"><i class="fa-solid fa-user"></i></div>
+                        <div class="yt-comment-body">
+                            <div class="yt-comment-header"><span class="yt-comment-name">User_A</span> <span class="yt-comment-time">2時間前</span></div>
+                            <div class="yt-comment-text">新しいアドオン、早速ダウンロードして遊んでます！</div>
+                        </div>
+                    </div>
+                    <div class="yt-comment">
+                        <div class="yt-avatar" style="background: #4caf50;"><i class="fa-solid fa-user"></i></div>
+                        <div class="yt-comment-body">
+                            <div class="yt-comment-header"><span class="yt-comment-name">ゲーム好き</span> <span class="yt-comment-time">5時間前</span></div>
+                            <div class="yt-comment-text">次回のPvP配信の予定はいつになりますか？楽しみに待ってます。</div>
                         </div>
                     </div>
                 </div>
+
+                <!-- 自分の入力フォーム -->
+                <div class="yt-input-section">
+                    <div class="yt-avatar" style="background: #065fd4;"><i class="fa-solid fa-user"></i></div>
+                    <div style="flex:1">
+                        <input type="text" id="ytCommentInput" class="yt-input" placeholder="公開コメントを入力...">
+                        <div class="yt-btns">
+                            <button class="yt-btn" onclick="closeYtModal(event)">キャンセル</button>
+                            <button class="yt-btn yt-btn-submit" onclick="submitComment()">コメント</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <!-- 利用規約・プライバシーポリシー用モーダル -->
+    <!-- 利用規約モーダル -->
     <div class="modal-overlay" id="legalModal" onclick="closeLegalModal(event)">
-        <div class="legal-modal-content">
-            <span class="legal-close" onclick="closeLegalModal(event)">&times;</span>
-            <h3 id="legalTitle">タイトル</h3>
-            <p id="legalText">本文</p>
+        <div class="legal-modal-content"><span class="legal-close" onclick="closeLegalModal(event)">&times;</span><h3 id="legalTitle"></h3><p id="legalText"></p></div>
+    </div>
+
+    <!-- 全画面表示（さらに表示）モーダル -->
+    <div class="fs-modal-overlay" id="fsModal">
+        <div class="fs-header">
+            <h2 class="fs-title" id="fsTitle">TITLE</h2>
+            <span class="fs-close" onclick="closeFullScreen()">&times;</span>
+        </div>
+        <div class="fs-body" id="fsBody">
+            <!-- コンテンツがJavaScriptで挿入されます -->
         </div>
     </div>
 
     <script>
+        // スライドメニュー
         function toggleMenu() {
             const btn = document.getElementById('menuBtn');
             const nav = document.getElementById('navOverlay');
@@ -231,6 +285,7 @@
             nav.classList.toggle('open');
         }
 
+        // スクロール時のアニメーション
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -242,25 +297,74 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // 質問モーダル
+        // コメントモーダルの開閉
         function openYtModal() { document.getElementById('ytModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeYtModal(e) {
-            if (e.target.id === 'ytModal' || e.target.innerHTML === '&times;' || e.target.innerText === 'キャンセル') {
-                document.getElementById('ytModal').classList.remove('active'); document.body.style.overflow = 'auto';
-            }
+        function closeYtModal(e) { 
+            if (e.target.id === 'ytModal' || e.target.innerHTML === '&times;' || e.target.innerText === 'キャンセル') { 
+                document.getElementById('ytModal').classList.remove('active'); 
+                document.body.style.overflow = 'auto'; 
+            } 
         }
 
-        // 法的モーダル（利用規約など）
-        function openLegal(title, text) {
-            document.getElementById('legalTitle').innerText = title;
-            document.getElementById('legalText').innerText = text;
-            document.getElementById('legalModal').classList.add('active');
+        // コメント投稿機能
+        function submitComment() {
+            const input = document.getElementById('ytCommentInput');
+            const text = input.value.trim();
+            if(text === "") return; // 空の場合は何もしない
+
+            const list = document.getElementById('commentsList');
+            const newComment = `
+                <div class="yt-comment">
+                    <div class="yt-avatar" style="background: #065fd4;"><i class="fa-solid fa-user"></i></div>
+                    <div class="yt-comment-body">
+                        <div class="yt-comment-header"><span class="yt-comment-name">あなた</span> <span class="yt-comment-time">たった今</span></div>
+                        <div class="yt-comment-text">${text}</div>
+                    </div>
+                </div>
+            `;
+            // リストの最後に追加
+            list.insertAdjacentHTML('beforeend', newComment);
+            input.value = ""; // 入力欄をリセット
+            
+            // スクロールを一番下に移動して追加したコメントを見せる
+            const area = document.querySelector('.yt-comments-area');
+            area.scrollTop = area.scrollHeight;
+        }
+
+        // 利用規約モーダルの開閉
+        function openLegal(title, text) { 
+            document.getElementById('legalTitle').innerText = title; 
+            document.getElementById('legalText').innerText = text; 
+            document.getElementById('legalModal').classList.add('active'); 
+            document.body.style.overflow = 'hidden'; 
+        }
+        function closeLegalModal(e) { 
+            if (e.target.id === 'legalModal' || e.target.className === 'legal-close') { 
+                document.getElementById('legalModal').classList.remove('active'); 
+                document.body.style.overflow = 'auto'; 
+            } 
+        }
+
+        // 全画面モーダル（さらに表示）の開閉
+        function openFullScreen(category) {
+            // カテゴリごとのダミーテキスト（実際の運用時に書き換えてください）
+            const contents = {
+                'LIVE': "これまでの配信アーカイブ一覧や、次回の詳しい配信予定がここに表示されます。",
+                'VIDEO': "シリーズ別の再生リストや、投稿されたすべての動画一覧がここに表示されます。",
+                'DOWNLOAD': "配布中のアドオンやテクスチャの詳しい使い方、ダウンロードリンクがここに表示されます。",
+                'EVENT': "現在開催中の企画や、今後開催される参加型イベントの詳細がここに表示されます。",
+                'NEWS': "サイトの更新履歴、グッズ情報などの重要なお知らせ一覧がここに表示されます。",
+                'SCHEDULE': "今月の配信スケジュールや、動画投稿の予定表カレンダーがここに表示されます。"
+            };
+
+            document.getElementById('fsTitle').innerText = category + " DETAILS";
+            document.getElementById('fsBody').innerText = contents[category];
+            document.getElementById('fsModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeLegalModal(e) {
-            if (e.target.id === 'legalModal' || e.target.className === 'legal-close') {
-                document.getElementById('legalModal').classList.remove('active'); document.body.style.overflow = 'auto';
-            }
+        function closeFullScreen() {
+            document.getElementById('fsModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
     </script>
 </body>
