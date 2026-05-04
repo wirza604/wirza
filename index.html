@@ -12,6 +12,10 @@
         html { scroll-behavior: smooth; }
         body { background-color: #ffffff; color: #000000; font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; overflow-x: hidden; }
         
+        /* --- 共通：ホバーで赤色 --- */
+        a:hover, .more-link:hover, .nav-link:hover { color: #ff0000 !important; transition: 0.3s; }
+        .menu-btn:hover span { background: #ff0000 !important; }
+
         /* --- ヘッダー --- */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
@@ -20,12 +24,14 @@
         }
         .brand-chip { display: flex; align-items: center; gap: 8px; background-color: #374151; color: #ffffff; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: bold; }
 
-        /* メニュー開閉 0.5s */
+        /* メニュー開閉 (×印への変化) */
         .menu-btn { width: 30px; height: 22px; position: relative; cursor: pointer; z-index: 1100; }
         .menu-btn span { display: block; position: absolute; width: 100%; height: 3px; background: #000; border-radius: 3px; transition: 0.5s; }
         .menu-btn span:nth-child(1) { top: 0; }
         .menu-btn span:nth-child(2) { top: 9px; }
         .menu-btn span:nth-child(3) { bottom: 0; }
+        
+        /* 3本線が×になるアニメーション */
         .menu-btn.active span:nth-child(1) { transform: translateY(9px) rotate(-45deg); }
         .menu-btn.active span:nth-child(2) { opacity: 0; }
         .menu-btn.active span:nth-child(3) { transform: translateY(-10px) rotate(45deg); }
@@ -43,96 +49,53 @@
         .hero-video { width: 100%; height: 65vh; background: #000; display: flex; justify-content: center; align-items: center; margin-bottom: 2cm; }
         .video-container { width: 90%; max-width: 1100px; aspect-ratio: 16/9; }
 
-        /* 交互スライドと余白の共通設定 */
         section { 
             width: calc(100% - 1cm); 
-            margin-bottom: 2cm; 
-            padding: 1.5cm 1cm; 
+            margin-bottom: 2cm; padding: 1.5cm 1cm; 
             display: flex; flex-direction: column; align-items: flex-start; 
             box-sizing: border-box;
             transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s;
             opacity: 0;
         }
-
-        /* 右から来る項目：左を1cm開ける */
-        .reveal-right { 
-            margin-left: 1cm; 
-            margin-right: 0;
-            transform: translateX(100vw); 
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-        }
-
-        /* 左から来る項目：右を1cm開ける */
-        .reveal-left { 
-            margin-left: 0; 
-            margin-right: 1cm;
-            transform: translateX(-100vw); 
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            align-items: flex-end; /* テキストを右側に寄せる場合はここを調整 */
-        }
-
+        .reveal-right { margin-left: 1cm; transform: translateX(100vw); border-radius: 20px 0 0 20px; }
+        .reveal-left { margin-right: 1cm; transform: translateX(-100vw); border-radius: 0 20px 20px 0; align-items: flex-end; }
         section.active { opacity: 1; transform: translateX(0); }
 
-        .section-header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 30px; }
-        .section-title-large { font-size: clamp(40px, 10vw, 60px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
-        .more-link { font-size: 14px; font-weight: bold; color: inherit; text-decoration: none; opacity: 0.7; padding-bottom: 8px; cursor: pointer; }
-
-        /* 背景色 */
+        /* セクション色設定 */
         .bg-red { background-color: #ff0000; color: #fff; }
-        .bg-purple { background-color: #6a5acd; color: #fff; }
+        .bg-purple { background-color: #6a5acd; color: #fff; } /* ビデオ：紫 */
         .bg-green { background-color: #2e8b57; color: #fff; }
-        .bg-pink { background-color: #ff69b4; color: #fff; }
+        .bg-yellow { background-color: #ffeb3b; color: #000; } /* イベント：黄 */
         .bg-blue { background-color: #1e4185; color: #fff; }
         .bg-orange { background-color: #ff8c00; color: #fff; }
 
+        .section-header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 30px; }
+        .section-title-large { font-size: clamp(40px, 10vw, 60px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
+        .more-link { font-size: 14px; font-weight: bold; color: inherit; text-decoration: none; opacity: 0.7; cursor: pointer; }
+
         .content-area { width: 100%; max-width: 1100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; }
+        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; }
 
         /* --- フッター --- */
         footer { background-color: #000; color: #fff; padding: 60px 1cm; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
-        .footer-column h4 { font-size: 14px; color: #888; margin-bottom: 20px; }
+        .footer-column h4 { font-size: 12px; color: #888; margin-bottom: 20px; letter-spacing: 1px; }
         .footer-column ul { list-style: none; padding: 0; }
         .footer-column ul li { margin-bottom: 12px; }
         .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; cursor: pointer; }
-        .sns-icons { display: flex; gap: 25px; }
-        .sns-icons a { color: #fff; font-size: 24px; }
-
-        /* --- モーダル共通 --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 3000; }
-        .modal-overlay.active { display: flex; }
         
-        .yt-modal-content { background: #fff; color: #000; width: 95%; max-width: 600px; height: 85vh; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
-        .yt-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .yt-comments-area { flex: 1; overflow-y: auto; padding: 20px; }
-        .yt-comments-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .yt-comment { display: flex; gap: 15px; }
-        .yt-comment-body { display: flex; flex-direction: column; }
-        .yt-comment-header { font-size: 13px; margin-bottom: 5px; }
-        .yt-comment-name { font-weight: bold; margin-right: 8px; }
-        .yt-comment-text { font-size: 14px; }
+        .sns-icons { display: flex; gap: 25px; }
+        .sns-icons a { color: #fff; font-size: 24px; transition: 0.3s; }
 
-        .yt-input-section { display: flex; gap: 15px; }
-        .yt-avatar { width: 40px; height: 40px; background: #ccc; border-radius: 50%; flex-shrink: 0; display: flex; justify-content: center; align-items: center; color: #fff; }
-        .yt-input { width: 100%; border: none; border-bottom: 1px solid #e5e5e5; padding: 5px 0; outline: none; }
-        .yt-btns { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
-        .yt-btn { padding: 8px 16px; border-radius: 18px; font-size: 14px; font-weight: bold; cursor: pointer; border: none; }
-        .yt-btn-submit { background: #065fd4; color: #fff; }
+        /* --- モーダル --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 3000; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: #fff; color: #000; width: 90%; max-width: 600px; max-height: 80vh; border-radius: 15px; padding: 30px; overflow-y: auto; position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; }
 
-        /* 全画面モーダル */
-        .fs-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; color: #000; z-index: 4000;
-            display: flex; flex-direction: column;
-            opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
-        }
-        .fs-modal-overlay.active { opacity: 1; visibility: visible; }
-        .fs-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #eee; }
-        .fs-title { font-size: 28px; font-weight: 900; font-style: italic; margin: 0; }
-        .fs-close { font-size: 36px; cursor: pointer; color: #333; }
-        .fs-body { flex: 1; padding: 40px; overflow-y: auto; }
+        /* 質問ページ用(YouTube風) */
+        .yt-input { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 10px 0; outline: none; margin-bottom: 20px; }
+        .yt-btn { padding: 10px 20px; background: #065fd4; color: #fff; border: none; border-radius: 20px; cursor: pointer; float: right; }
     </style>
 </head>
 <body>
@@ -154,35 +117,33 @@
     <main>
         <div class="hero-video"><div class="video-container"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/動画ID" frameborder="0" allowfullscreen></iframe></div></div>
 
-        <!-- 奇数：右からスライド ＆ 左に1cm空白 -->
         <section id="live" class="bg-red reveal-right">
-            <div class="section-header"><a onclick="openFullScreen('LIVE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
+            <div class="section-header"><a onclick="openModal('LIVE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
             <div class="content-area"><a href="#" class="card">NOW ON AIR</a></div>
         </section>
 
-        <!-- 偶数：左からスライド ＆ 右に1cm空白 -->
         <section id="video" class="bg-purple reveal-left">
-            <div class="section-header"><a onclick="openFullScreen('VIDEO')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
+            <div class="section-header"><a onclick="openModal('VIDEO')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
             <div class="content-area"><a href="#" class="card">LATEST VIDEO</a></div>
         </section>
 
         <section id="download" class="bg-green reveal-right">
-            <div class="section-header"><a onclick="openFullScreen('DOWNLOAD')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
+            <div class="section-header"><a onclick="openModal('DOWNLOAD')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
             <div class="content-area"><a href="#" class="card">ADD-ON PACK</a></div>
         </section>
 
-        <section id="event" class="bg-pink reveal-left">
-            <div class="section-header"><a onclick="openFullScreen('EVENT')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">イベント</span><span class="section-title-large">EVENT</span></h2></div>
+        <section id="event" class="bg-yellow reveal-left">
+            <div class="section-header"><a onclick="openModal('EVENT')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">イベント</span><span class="section-title-large">EVENT</span></h2></div>
             <div class="content-area"><a href="#" class="card">SPECIAL INFO</a></div>
         </section>
 
         <section id="news" class="bg-blue reveal-right">
-            <div class="section-header"><a onclick="openFullScreen('NEWS')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
+            <div class="section-header"><a onclick="openModal('NEWS')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
             <div class="content-area"><a href="#" class="card">UPDATE INFO</a></div>
         </section>
 
         <section id="schedule" class="bg-orange reveal-left">
-            <div class="section-header"><a onclick="openFullScreen('SCHEDULE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">予定表</span><span class="section-title-large">SCHEDULE</span></h2></div>
+            <div class="section-header"><a onclick="openModal('SCHEDULE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">予定表</span><span class="section-title-large">SCHEDULE</span></h2></div>
             <div class="content-area"><a href="#" class="card">STREAMING CALENDAR</a></div>
         </section>
     </main>
@@ -197,8 +158,15 @@
                     <li><a href="#download">DOWNLOAD</a></li>
                     <li><a href="#event">EVENT</a></li>
                     <li><a href="#news">NEWS</a></li>
-                    <li><a onclick="openYtModal()">QUESTION</a></li>
+                    <li><a onclick="openModal('QUESTION')">QUESTION (質問)</a></li>
                     <li><a href="#schedule">SCHEDULE</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>LEGAL</h4>
+                <ul>
+                    <li><a onclick="openModal('PRIVACY')">プライバシーポリシー</a></li>
+                    <li><a onclick="openModal('TERMS')">利用規約</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -206,47 +174,20 @@
                 <div class="sns-icons">
                     <a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                     <a href="https://twitter.com/Wirza604" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.tiktok.com/" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <p style="font-size: 10px; opacity: 0.3; text-align: center;">&copy; 2026 WIRZA OFFICIAL</p>
     </footer>
 
-    <!-- コメントモーダル -->
-    <div class="modal-overlay" id="ytModal" onclick="closeYtModal(event)">
-        <div class="yt-modal-content">
-            <div class="yt-header"><h3>コメント</h3><span style="cursor:pointer; font-size:24px;" onclick="closeYtModal(event)">&times;</span></div>
-            <div class="yt-comments-area">
-                <div class="yt-comments-list" id="commentsList">
-                    <div class="yt-comment">
-                        <div class="yt-avatar" style="background: #e91e63;"><i class="fa-solid fa-user"></i></div>
-                        <div class="yt-comment-body">
-                            <div class="yt-comment-header"><span class="yt-comment-name">User_A</span></div>
-                            <div class="yt-comment-text">新しいアドオン、早速ダウンロードして遊んでます！</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="yt-input-section">
-                    <div class="yt-avatar" style="background: #065fd4;"><i class="fa-solid fa-user"></i></div>
-                    <div style="flex:1">
-                        <input type="text" id="ytCommentInput" class="yt-input" placeholder="公開コメントを入力...">
-                        <div class="yt-btns">
-                            <button class="yt-btn" onclick="closeYtModal(event)">キャンセル</button>
-                            <button class="yt-btn yt-btn-submit" onclick="submitComment()">コメント</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- 共通モーダル -->
+    <div class="modal-overlay" id="commonModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal(event)">&times;</span>
+            <div id="modalBody"></div>
         </div>
-    </div>
-
-    <!-- 全画面モーダル -->
-    <div class="fs-modal-overlay" id="fsModal">
-        <div class="fs-header">
-            <h2 class="fs-title" id="fsTitle"></h2>
-            <span class="fs-close" onclick="closeFullScreen()">&times;</span>
-        </div>
-        <div class="fs-body" id="fsBody"></div>
     </div>
 
     <script>
@@ -257,8 +198,9 @@
             nav.classList.toggle('open');
         }
 
+        // スクロールアニメーション
         function reveal() {
-            var reveals = document.querySelectorAll(".reveal-right, .reveal-left");
+            var reveals = document.querySelectorAll("section");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
@@ -268,34 +210,34 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        function openYtModal() { document.getElementById('ytModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeYtModal(e) { if (e.target.id === 'ytModal' || e.target.innerHTML === '&times;' || e.target.innerText === 'キャンセル') { document.getElementById('ytModal').classList.remove('active'); document.body.style.overflow = 'auto'; } }
-
-        function submitComment() {
-            const input = document.getElementById('ytCommentInput');
-            const text = input.value.trim();
-            if(!text) return;
-            const list = document.getElementById('commentsList');
-            const newComment = `
-                <div class="yt-comment">
-                    <div class="yt-avatar" style="background: #065fd4;"><i class="fa-solid fa-user"></i></div>
-                    <div class="yt-comment-body">
-                        <div class="yt-comment-header"><span class="yt-comment-name">あなた</span></div>
-                        <div class="yt-comment-text">${text}</div>
-                    </div>
-                </div>`;
-            list.insertAdjacentHTML('beforeend', newComment);
-            input.value = "";
-            document.querySelector('.yt-comments-area').scrollTop = document.querySelector('.yt-comments-area').scrollHeight;
-        }
-
-        function openFullScreen(category) {
-            document.getElementById('fsTitle').innerText = category + " DETAILS";
-            document.getElementById('fsBody').innerText = category + "に関する詳細情報がここに表示されます。";
-            document.getElementById('fsModal').classList.add('active');
+        // モーダル制御
+        function openModal(type) {
+            const body = document.getElementById('modalBody');
+            let content = "";
+            
+            if(type === 'QUESTION') {
+                content = `<h3>質問・お問い合わせ</h3><p>ウィルザへの質問をどうぞ！</p>
+                           <input type="text" class="yt-input" placeholder="質問内容を入力...">
+                           <button class="yt-btn" onclick="alert('送信しました！')">送信</button>`;
+            } else if(type === 'PRIVACY') {
+                content = `<h3>プライバシーポリシー</h3><p>当サイトでは、利用者の情報を適切に管理します...</p>`;
+            } else if(type === 'TERMS') {
+                content = `<h3>利用規約</h3><p>本サイトの利用に関しては以下のルールを守ってください...</p>`;
+            } else {
+                content = `<h3>${type}</h3><p>${type}に関する詳細情報がここに表示されます。</p>`;
+            }
+            
+            body.innerHTML = content;
+            document.getElementById('commonModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeFullScreen() { document.getElementById('fsModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        function closeModal(e) {
+            if (e.target.id === 'commonModal' || e.target.className === 'close-btn') {
+                document.getElementById('commonModal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
     </script>
 </body>
 </html>
