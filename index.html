@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ウィルザ公式サイト | WIRZA OFFICIAL SITE</title>
     
+    <!-- アイコン設定 -->
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -12,11 +13,10 @@
         html { scroll-behavior: smooth; }
         body { background-color: #ffffff; color: #000000; font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* --- 共通：ホバーで赤色 --- */
-        a:hover, .more-link:hover, .nav-link:hover { color: #ff0000 !important; transition: 0.3s; }
+        /* ホバーで赤色 */
+        a:hover, .nav-link:hover, .footer-column ul li a:hover { color: #ff0000 !important; transition: 0.3s; }
         .menu-btn:hover span { background: #ff0000 !important; }
 
-        /* --- ヘッダー --- */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px 30px; position: sticky; top: 0; background: white; 
@@ -24,14 +24,12 @@
         }
         .brand-chip { display: flex; align-items: center; gap: 8px; background-color: #374151; color: #ffffff; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: bold; }
 
-        /* メニュー開閉 (×印への変化) */
+        /* ハンバーガーメニュー(×印) */
         .menu-btn { width: 30px; height: 22px; position: relative; cursor: pointer; z-index: 1100; }
         .menu-btn span { display: block; position: absolute; width: 100%; height: 3px; background: #000; border-radius: 3px; transition: 0.5s; }
         .menu-btn span:nth-child(1) { top: 0; }
         .menu-btn span:nth-child(2) { top: 9px; }
         .menu-btn span:nth-child(3) { bottom: 0; }
-        
-        /* 3本線が×になるアニメーション */
         .menu-btn.active span:nth-child(1) { transform: translateY(9px) rotate(-45deg); }
         .menu-btn.active span:nth-child(2) { opacity: 0; }
         .menu-btn.active span:nth-child(3) { transform: translateY(-10px) rotate(45deg); }
@@ -45,199 +43,132 @@
         .nav-overlay.open { opacity: 1; visibility: visible; }
         .nav-link { font-size: 30px; font-weight: 900; color: #000; text-decoration: none; margin: 15px; }
 
-        /* --- コンテンツ --- */
-        .hero-video { width: 100%; height: 65vh; background: #000; display: flex; justify-content: center; align-items: center; margin-bottom: 2cm; }
-        .video-container { width: 90%; max-width: 1100px; aspect-ratio: 16/9; }
-
+        /* セクション設定 */
         section { 
-            width: calc(100% - 1cm); 
-            margin-bottom: 2cm; padding: 1.5cm 1cm; 
-            display: flex; flex-direction: column; align-items: flex-start; 
-            box-sizing: border-box;
-            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s;
-            opacity: 0;
+            width: calc(100% - 1cm); margin-bottom: 2cm; padding: 1.5cm 1cm; 
+            display: flex; flex-direction: column; box-sizing: border-box;
+            transition: 1s ease-out; opacity: 0;
         }
-        .reveal-right { margin-left: 1cm; transform: translateX(100vw); border-radius: 20px 0 0 20px; }
-        .reveal-left { margin-right: 1cm; transform: translateX(-100vw); border-radius: 0 20px 20px 0; align-items: flex-end; }
+        .reveal-right { margin-left: 1cm; transform: translateX(50px); border-radius: 20px 0 0 20px; align-items: flex-start; }
+        .reveal-left { margin-right: 1cm; transform: translateX(-50px); border-radius: 0 20px 20px 0; align-items: flex-end; }
         section.active { opacity: 1; transform: translateX(0); }
 
-        /* セクション色設定 */
         .bg-red { background-color: #ff0000; color: #fff; }
-        .bg-purple { background-color: #6a5acd; color: #fff; } /* ビデオ：紫 */
-        .bg-green { background-color: #2e8b57; color: #fff; }
-        .bg-yellow { background-color: #ffeb3b; color: #000; } /* イベント：黄 */
+        .bg-purple { background-color: #6a5acd; color: #fff; }
+        .bg-pink { background-color: #ff69b4; color: #fff; } /* 視聴者参加型 */
+        .bg-yellow { background-color: #ffeb3b; color: #000; }
         .bg-blue { background-color: #1e4185; color: #fff; }
-        .bg-orange { background-color: #ff8c00; color: #fff; }
 
-        .section-header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 30px; }
-        .section-title-large { font-size: clamp(40px, 10vw, 60px); font-weight: 900; font-style: italic; line-height: 1; margin: 0; }
-        .more-link { font-size: 14px; font-weight: bold; color: inherit; text-decoration: none; opacity: 0.7; cursor: pointer; }
+        .section-title-large { font-size: clamp(40px, 10vw, 60px); font-weight: 900; font-style: italic; margin: 0; }
 
-        .content-area { width: 100%; max-width: 1100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { aspect-ratio: 16 / 9; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-weight: bold; text-decoration: none; color: inherit; }
+        /* 賑やかなフッター */
+        footer { background-color: #000; color: #fff; padding: 60px 1cm; border-top: 5px solid #ff0000; }
+        .footer-marquee { background: #222; overflow: hidden; white-space: nowrap; padding: 10px 0; margin-bottom: 40px; }
+        .footer-marquee span { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; font-weight: bold; color: #ffeb3b; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* --- フッター --- */
-        footer { background-color: #000; color: #fff; padding: 60px 1cm; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
-        .footer-column h4 { font-size: 12px; color: #888; margin-bottom: 20px; letter-spacing: 1px; }
-        .footer-column ul { list-style: none; padding: 0; }
-        .footer-column ul li { margin-bottom: 12px; }
-        .footer-column ul li a { color: #fff; text-decoration: none; font-size: 14px; cursor: pointer; }
-        
-        .sns-icons { display: flex; gap: 25px; }
-        .sns-icons a { color: #fff; font-size: 24px; transition: 0.3s; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .footer-column h4 { font-size: 14px; color: #ff0000; margin-bottom: 20px; border-left: 3px solid #ff0000; padding-left: 10px; }
+        .status-badge { background: #333; padding: 10px; border-radius: 10px; margin-bottom: 10px; font-size: 13px; }
+        .cat-info { font-size: 12px; color: #ccc; display: flex; align-items: center; gap: 10px; }
 
-        /* --- モーダル --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 3000; }
-        .modal-overlay.active { display: flex; }
-        .modal-content { background: #fff; color: #000; width: 90%; max-width: 600px; max-height: 80vh; border-radius: 15px; padding: 30px; overflow-y: auto; position: relative; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; }
-
-        /* 質問ページ用(YouTube風) */
-        .yt-input { width: 100%; border: none; border-bottom: 1px solid #ccc; padding: 10px 0; outline: none; margin-bottom: 20px; }
-        .yt-btn { padding: 10px 20px; background: #065fd4; color: #fff; border: none; border-radius: 20px; cursor: pointer; float: right; }
+        .sns-icons { display: flex; gap: 20px; margin-top: 15px; }
+        .sns-icons a { font-size: 28px; color: #fff; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand-chip"><i class="fa-solid fa-globe"></i> <span>ウィルザ公式サイト</span></div>
+        <div class="brand-chip"><img src="favicon.png" width="20" height="20" style="border-radius:50%"> <span>ウィルザ公式サイト</span></div>
         <div class="menu-btn" id="menuBtn" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </header>
 
     <div class="nav-overlay" id="navOverlay">
         <a href="#live" class="nav-link" onclick="toggleMenu()">LIVE</a>
+        <a href="#join" class="nav-link" onclick="toggleMenu()">JOIN US</a>
         <a href="#video" class="nav-link" onclick="toggleMenu()">VIDEO</a>
-        <a href="#download" class="nav-link" onclick="toggleMenu()">DOWNLOAD</a>
         <a href="#event" class="nav-link" onclick="toggleMenu()">EVENT</a>
-        <a href="#news" class="nav-link" onclick="toggleMenu()">NEWS</a>
-        <a href="#schedule" class="nav-link" onclick="toggleMenu()">SCHEDULE</a>
     </div>
 
     <main>
-        <div class="hero-video"><div class="video-container"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/動画ID" frameborder="0" allowfullscreen></iframe></div></div>
-
         <section id="live" class="bg-red reveal-right">
-            <div class="section-header"><a onclick="openModal('LIVE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">ライブ配信</span><span class="section-title-large">LIVE</span></h2></div>
-            <div class="content-area"><a href="#" class="card">NOW ON AIR</a></div>
+            <h2 class="section-title-large">LIVE</h2>
+            <p>最新のライブ配信をチェックしよう！</p>
         </section>
 
-        <section id="video" class="bg-purple reveal-left">
-            <div class="section-header"><a onclick="openModal('VIDEO')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">動画</span><span class="section-title-large">VIDEO</span></h2></div>
-            <div class="content-area"><a href="#" class="card">LATEST VIDEO</a></div>
+        <!-- 新設：視聴者参加型セクション -->
+        <section id="join" class="bg-pink reveal-left">
+            <div style="text-align:right">
+                <h2 class="section-title-large">JOIN US</h2>
+                <p>視聴者参加型イベント！一緒にマイクラで遊ぼう！</p>
+            </div>
         </section>
 
-        <section id="download" class="bg-green reveal-right">
-            <div class="section-header"><a onclick="openModal('DOWNLOAD')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">配布物</span><span class="section-title-large">DOWNLOAD</span></h2></div>
-            <div class="content-area"><a href="#" class="card">ADD-ON PACK</a></div>
+        <section id="video" class="bg-purple reveal-right">
+            <h2 class="section-title-large">VIDEO</h2>
+            <p>おすすめの動画はこちら！</p>
         </section>
 
         <section id="event" class="bg-yellow reveal-left">
-            <div class="section-header"><a onclick="openModal('EVENT')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">イベント</span><span class="section-title-large">EVENT</span></h2></div>
-            <div class="content-area"><a href="#" class="card">SPECIAL INFO</a></div>
-        </section>
-
-        <section id="news" class="bg-blue reveal-right">
-            <div class="section-header"><a onclick="openModal('NEWS')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">お知らせ</span><span class="section-title-large">NEWS</span></h2></div>
-            <div class="content-area"><a href="#" class="card">UPDATE INFO</a></div>
-        </section>
-
-        <section id="schedule" class="bg-orange reveal-left">
-            <div class="section-header"><a onclick="openModal('SCHEDULE')" class="more-link">さらに表示</a><h2><span style="display:block; font-size:16px;">予定表</span><span class="section-title-large">SCHEDULE</span></h2></div>
-            <div class="content-area"><a href="#" class="card">STREAMING CALENDAR</a></div>
+            <div style="text-align:right">
+                <h2 class="section-title-large">EVENT</h2>
+                <p>特別なニュースやお知らせ！</p>
+            </div>
         </section>
     </main>
 
     <footer>
+        <div class="footer-marquee">
+            <span>【NEWS】チャンネル登録者数52人突破！ありがとう！  ★  次回の視聴者参加型ライブもお楽しみに！  ★  公式マイクラアドオン製作中！</span>
+        </div>
+
         <div class="footer-grid">
             <div class="footer-column">
-                <h4>CONTENTS</h4>
-                <ul>
-                    <li><a href="#live">LIVE</a></li>
-                    <li><a href="#video">VIDEO</a></li>
-                    <li><a href="#download">DOWNLOAD</a></li>
-                    <li><a href="#event">EVENT</a></li>
-                    <li><a href="#news">NEWS</a></li>
-                    <li><a onclick="openModal('QUESTION')">QUESTION (質問)</a></li>
-                    <li><a href="#schedule">SCHEDULE</a></li>
-                </ul>
+                <h4>MY STATUS</h4>
+                <div class="status-badge"><i class="fa-solid fa-users"></i> Subscribers: 52</div>
+                <div class="status-badge"><i class="fa-solid fa-gamepad"></i> Playing: Minecraft</div>
+                <div class="cat-info">
+                    <i class="fa-solid fa-cat"></i> 
+                    <span>三毛猫 ＆ 茶トラと生活中</span>
+                </div>
             </div>
-            <div class="footer-column">
-                <h4>LEGAL</h4>
-                <ul>
-                    <li><a onclick="openModal('PRIVACY')">プライバシーポリシー</a></li>
-                    <li><a onclick="openModal('TERMS')">利用規約</a></li>
-                </ul>
-            </div>
+
             <div class="footer-column">
                 <h4>FOLLOW ME</h4>
                 <div class="sns-icons">
                     <a href="https://www.youtube.com/@wirza-604" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                     <a href="https://twitter.com/Wirza604" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.tiktok.com/" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@wirza604" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/wirza604/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
-        </div>
-        <p style="font-size: 10px; opacity: 0.3; text-align: center;">&copy; 2026 WIRZA OFFICIAL</p>
-    </footer>
 
-    <!-- 共通モーダル -->
-    <div class="modal-overlay" id="commonModal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal(event)">&times;</span>
-            <div id="modalBody"></div>
+            <div class="footer-column">
+                <h4>INFORMATION</h4>
+                <ul style="list-style:none; padding:0;">
+                    <li><a onclick="alert('準備中')">プライバシーポリシー</a></li>
+                    <li><a onclick="alert('準備中')">利用規約</a></li>
+                    <li><a onclick="alert('準備中')">質問ページ</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
+        <p style="text-align:center; font-size:10px; margin-top:50px; opacity:0.5;">&copy; 2026 WIRZA OFFICIAL</p>
+    </footer>
 
     <script>
         function toggleMenu() {
-            const btn = document.getElementById('menuBtn');
-            const nav = document.getElementById('navOverlay');
-            btn.classList.toggle('active');
-            nav.classList.toggle('open');
+            document.getElementById('menuBtn').classList.toggle('active');
+            document.getElementById('navOverlay').classList.toggle('open');
         }
 
-        // スクロールアニメーション
-        function reveal() {
+        window.addEventListener("scroll", function() {
             var reveals = document.querySelectorAll("section");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+                if (elementTop < windowHeight - 150) { reveals[i].classList.add("active"); }
             }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal();
-
-        // モーダル制御
-        function openModal(type) {
-            const body = document.getElementById('modalBody');
-            let content = "";
-            
-            if(type === 'QUESTION') {
-                content = `<h3>質問・お問い合わせ</h3><p>ウィルザへの質問をどうぞ！</p>
-                           <input type="text" class="yt-input" placeholder="質問内容を入力...">
-                           <button class="yt-btn" onclick="alert('送信しました！')">送信</button>`;
-            } else if(type === 'PRIVACY') {
-                content = `<h3>プライバシーポリシー</h3><p>当サイトでは、利用者の情報を適切に管理します...</p>`;
-            } else if(type === 'TERMS') {
-                content = `<h3>利用規約</h3><p>本サイトの利用に関しては以下のルールを守ってください...</p>`;
-            } else {
-                content = `<h3>${type}</h3><p>${type}に関する詳細情報がここに表示されます。</p>`;
-            }
-            
-            body.innerHTML = content;
-            document.getElementById('commonModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(e) {
-            if (e.target.id === 'commonModal' || e.target.className === 'close-btn') {
-                document.getElementById('commonModal').classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
+        });
     </script>
 </body>
 </html>
